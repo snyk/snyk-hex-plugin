@@ -8,3 +8,5 @@ coverage
 package-lock.json
 yarn.lock
 .eslintcache
+.idea
+elixirsrc/_build

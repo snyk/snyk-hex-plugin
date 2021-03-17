@@ -6,10 +6,10 @@
 
 https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template
 
-After creating your repository, search for `CHANGE_ME` and update accordingly
+After creating your repository, search for `snyk-elixir-plugin` and update accordingly
 
 ---
 
-## Title CHANGE_ME
+## Title snyk-elixir-plugin
 
-CHANGE_ME
+snyk-elixir-plugin

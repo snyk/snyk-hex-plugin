@@ -1,71 +1,196 @@
 version: 2.1
+
 orbs:
-  node: circleci/node@2.1.1
+  win: circleci/windows@2.4.0
 
 defaults: &defaults
-  resource_class: small
-  docker:
-    - image: node:12
+  parameters:
+    node_version:
+      type: string
+      default: ""
+    elixir_version:
+      type: string
+      default: ""
+  working_directory: ~/snyk-elixir-plugin
+
+windows_defaults: &windows_defaults
+  environment:
+    npm_config_loglevel: silent
+  executor:
+    name: win/default
 
 commands:
+  install_node_npm_via_nvm:
+    description: Install Node for when nvm is present
+    parameters:
+      node_version:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Install node@<< parameters.node_version >> (via nvm)
+          command: nvm install << parameters.node_version >>
+      - run:
+          name: Use node@<< parameters.node_version >> (via nvm)
+          command: nvm use << parameters.node_version >>
+  install_deps:
+    description: Install dependencies
+    steps:
+      - run:
+          name: Install dependencies
+          command: npm install
+  install_node_npm_and_nvm:
+    description: Install correct Node version
+    parameters:
+      node_version:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: install node@<< parameters.node_version >>
+          command: |
+            cd ~
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            nvm install << parameters.node_version >>
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> $BASH_ENV
+            echo 'nvm use << parameters.node_version >>' >> $BASH_ENV
+  show_node_version:
+    description: Log Node and npm version
+    steps:
+      - run:
+          name: Node version
+          command: node --version
+      - run:
+          name: NPM version
+          command: npm --version
+  install_elixir_windows:
+    description: Install Elixir
+    parameters:
+      elixir_version:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Installing Elixir
+          command: choco install elixir --version << parameters.elixir_version >> --allow-downgrade
+      - run:
+          name: Installing Hex
+          command: mix local.hex --force
   setup_snyk_user:
     steps:
       - run:
           name: Use snyk-main npmjs user
           command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+  setup_snyk_user_windows:
+    steps:
+      - run:
+          name: Use snyk-main npmjs user
+          command: echo //registry.npmjs.org/:_authToken=%NPM_TOKEN% >> .npmrc
 
 jobs:
-  test:
+  lint:
     <<: *defaults
+    docker:
+      - image: circleci/node:<< parameters.node_version >>
     steps:
       - checkout
       - setup_snyk_user
-      - node/install-packages:
-          override-ci: true
-          cache-key: package.json
+      - install_deps
+      - show_node_version
       - run:
-          name: Lint
+          name: Run lint
           command: npm run lint
+
+  test-windows:
+    <<: *defaults
+    <<: *windows_defaults
+    environment:
+      Go: << parameters.elixir_version >>
+    steps:
+      - run: git config --global core.autocrlf false
+      - checkout
+      - setup_snyk_user_windows
+      - install_node_npm_via_nvm:
+          node_version: << parameters.node_version >>
+      - install_elixir_windows:
+          elixir_version: << parameters.elixir_version >>
+      - show_node_version
+      - install_deps
       - run:
-          name: Install JUnit coverage reporter
-          command: npm install --no-save jest-junit
+          name: Run tests
+          command: npm test
+
+  test-unix:
+    <<: *defaults
+    docker:
+      - image: circleci/elixir:<< parameters.elixir_version >>
+    steps:
+      - checkout
+      - setup_snyk_user
+      - install_node_npm_and_nvm:
+          node_version: << parameters.node_version >>
+      - show_node_version
+      - install_deps
       - run:
-          name: Run tests with JUnit as reporter
-          command: npx jest --coverage --ci --maxWorkers=3 --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
-      - store_test_results:
-          path: ./reports/junit/
-      - store_artifacts:
-          path: ./reports/junit
+          name: Installing Hex
+          command: mix local.hex --force
+      - run:
+          name: Run tests
+          command: npm test
+
   release:
     <<: *defaults
+    docker:
+      - image: circleci/node:<< parameters.node_version >>
+    resource_class: small
     steps:
       - checkout
       - setup_snyk_user
-      - node/install-packages:
-          override-ci: true
-          cache-key: package.json
+      - install_deps
       - run:
-          name: Release on GitHub
-          command: npx semantic-release@16
+          name: Publish to GitHub
+          command: npx semantic-release
 
 workflows:
   version: 2
-  test:
+  test_and_release:
     jobs:
-      - test:
-          name: Test
+      - lint:
+          name: Lint
           context: nodejs-install
-          filters:
-            branches:
-              ignore:
-                - master
-  release:
-    jobs:
+          node_version: "10"
+      - test-unix:
+          name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
+          context: nodejs-install
+          requires:
+            - Lint
+          matrix:
+            parameters:
+              node_version: ["10", "12"]
+              elixir_version: [ "1.11", "1.10", "1.9"]
+      - test-windows:
+          name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
+          context: nodejs-install
+          requires:
+            - Lint
+          matrix:
+            parameters:
+              node_version: [ "10", "12" ]
+              elixir_version: [ "1.11.2", "1.10.3", "1.9.4"]
+
+      # Release
       - release:
           name: Release
-          context: nodejs-lib-release
+          context: nodejs-app-release
+          node_version: "10"
+          requires:
+            - test-unix
+            - test-windows
           filters:
             branches:
               only:
