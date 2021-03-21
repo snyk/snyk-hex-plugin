@@ -1,10 +1,10 @@
 {
-  "name": "@snyk/CHANGE_ME",
-  "description": "CHANGE_ME",
-  "homepage": "https://github.com/snyk/CHANGE_ME",
+  "name": "@snyk/snyk-hex-plugin",
+  "description": "Snyk Hex Plugin for Elixir ecosystem",
+  "homepage": "https://github.com/snyk/snyk-hex-plugin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/snyk/CHANGE_ME"
+    "url": "https://github.com/snyk/snyk-hex-plugin"
   },
   "author": "snyk.io",
   "license": "Apache-2.0",
@@ -12,6 +12,7 @@
     "node": ">=10"
   },
   "files": [
+    "elixirsrc",
     "dist"
   ],
   "main": "dist/index.js",
@@ -29,11 +30,15 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@snyk/dep-graph": "^1.28.0",
+    "@snyk/mix-parser": "^1.0.0",
+    "debug": "^4.3.1",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.5",
     "@types/jest": "^25.2.3",
-    "@types/node": "^10",
+    "@types/node": "^10.17.55",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^7.0.0",
