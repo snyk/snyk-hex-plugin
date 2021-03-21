@@ -1,11 +1,12 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import debugLib = require('debug');
-import { buildDepGraph, ElixirJsonResult } from '@snyk/snyk-elixir-parser';
+import { buildDepGraph, MixJsonResult } from '@snyk/mix-parser';
 import * as subProcess from './sub-process';
 import { PluginResponse } from './types';
+import { debug } from './debug';
 
-const PLUGIN_NAME = 'snyk-elixir-plugin';
+const PLUGIN_NAME = 'snyk-hex-plugin';
 
 interface Options {
   debug?: boolean; // true will print out debug messages when using the "--debug" flag
@@ -20,20 +21,20 @@ export async function scan(
 ): Promise<PluginResponse> {
   options.debug ? debugLib.enable(PLUGIN_NAME) : debugLib.disable();
 
-  const [, pluginMetadata, elixirResult] = await Promise.all([
+  const [, , mixResult] = await Promise.all([
     verifyHexInstalled(),
-    getPluginMetaData(root, targetFile),
-    getElixirResult(root),
+    verifyMixInstalled(root),
+    getMixResult(root),
   ]);
 
-  const depGraph = buildDepGraph(elixirResult, !!options.dev, true);
+  const depGraph = buildDepGraph(mixResult, !!options.dev, true);
 
   return {
     scanResults: [
       {
         identity: {
           type: 'Hex',
-          targetFile: pluginMetadata.targetFile,
+          targetFile: normalizePath(path.resolve(root, targetFile)),
         },
         facts: [
           {
@@ -41,7 +42,7 @@ export async function scan(
             data: depGraph,
           },
         ],
-        name: options.projectName,
+        ...(options.projectName ? { name: options.projectName } : {}),
       },
     ],
   };
@@ -49,7 +50,8 @@ export async function scan(
 
 async function verifyHexInstalled() {
   try {
-    await subProcess.execute('mix', ['hex.info']);
+    const hexInfo = await subProcess.execute('mix', ['hex.info']);
+    debug(`hex info: `, hexInfo);
   } catch (err) {
     throw new Error(
       'hex is not installed. please run `mix local.hex` and try again.',
@@ -57,19 +59,12 @@ async function verifyHexInstalled() {
   }
 }
 
-async function getPluginMetaData(root: string, targetFile: string) {
-  const output = await subProcess.execute('mix', ['-v'], { cwd: root });
-  const versionMatch = /(Mix\s\d+\.\d+\.\d*)/.exec(output);
-  const runtime = versionMatch ? versionMatch[0] : 'Unknown version';
-
-  return {
-    name: PLUGIN_NAME,
-    runtime,
-    targetFile: pathToPosix(targetFile),
-  };
+async function verifyMixInstalled(root: string) {
+  const mixVersion = await subProcess.execute('mix', ['-v'], { cwd: root });
+  debug(`mix version: `, mixVersion);
 }
 
-async function getElixirResult(root: string): Promise<ElixirJsonResult> {
+async function getMixResult(root: string): Promise<MixJsonResult> {
   const cwd = path.join(__dirname, '../elixirsrc');
 
   const output = await subProcess.execute('mix', ['read.mix', root], { cwd });
@@ -79,13 +74,13 @@ async function getElixirResult(root: string): Promise<ElixirJsonResult> {
 
   try {
     const result = (await fs.promises.readFile(filePath, 'utf8')) as string;
-    return JSON.parse(result) as ElixirJsonResult;
+    return JSON.parse(result) as MixJsonResult;
   } finally {
     await fs.promises.unlink(filePath);
   }
 }
 
-function pathToPosix(filePath: string) {
+function normalizePath(filePath: string) {
   const parts = filePath.split(path.sep);
   return parts.join(path.posix.sep);
 }

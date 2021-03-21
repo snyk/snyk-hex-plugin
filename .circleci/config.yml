@@ -11,7 +11,7 @@ defaults: &defaults
     elixir_version:
       type: string
       default: ""
-  working_directory: ~/snyk-elixir-plugin
+  working_directory: ~/snyk-hex-plugin
 
 windows_defaults: &windows_defaults
   environment:
@@ -163,7 +163,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "10"
+          node_version: "10.24"
       - test-unix:
           name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -171,7 +171,7 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["10", "12"]
+              node_version: ["10.24", "12.21"]
               elixir_version: [ "1.11", "1.10", "1.9"]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
@@ -180,14 +180,14 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: [ "10", "12" ]
+              node_version: [ "10.24", "12.21" ]
               elixir_version: [ "1.11.2", "1.10.3", "1.9.4"]
 
       # Release
       - release:
           name: Release
           context: nodejs-app-release
-          node_version: "10"
+          node_version: "10.24"
           requires:
             - test-unix
             - test-windows

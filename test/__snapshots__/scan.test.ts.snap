@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inspect simple fixture 1`] = `
+exports[`scan simple fixture 1`] = `
 Object {
   "facts": Array [
     Object {
@@ -194,7 +194,7 @@ Object {
           "rootNodeId": "root-node",
         },
         "pkgManager": Object {
-          "name": "elixir",
+          "name": "hex",
         },
         "pkgs": Array [
           Object {
@@ -298,16 +298,12 @@ Object {
         ],
         "schemaVersion": "1.2.0",
       },
-      "type": "DepGraph",
+      "type": "depGraph",
     },
   ],
   "identify": Object {
-    "args": Object {
-      "runtime": undefined,
-    },
-    "targetFile": "mix.exs",
-    "type": "snyk-elixir-plugin",
+    "targetFile": "fixtures/simple/mix.exs",
+    "type": "Hex",
   },
-  "name": "/Users/admon/code/snyk-elixir-plugin/test/fixtures/simple",
 }
 `;

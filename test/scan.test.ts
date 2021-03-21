@@ -20,8 +20,15 @@ function clean(scanResult: ScanResult) {
   return {
     identify: {
       ...identity,
-      args: { ...identity.args, runtime: undefined },
+      targetFile: cleanTargetFile(identity.targetFile!),
     },
     ...props,
   };
+}
+
+function cleanTargetFile(targetFile: string) {
+  targetFile = path.relative(__dirname, targetFile);
+
+  // This replace will replace windows "\\" with "/" to match snapshot
+  return targetFile.replace(/\\/g, path.posix.sep);
 }
