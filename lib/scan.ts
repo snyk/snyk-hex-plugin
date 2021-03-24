@@ -1,51 +1,61 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import debugLib = require('debug');
-import { buildDepGraph, MixJsonResult } from '@snyk/mix-parser';
+import { buildDepGraphs, MixJsonResult } from '@snyk/mix-parser';
 import * as subProcess from './sub-process';
 import { PluginResponse } from './types';
-import { debug } from './debug';
-
-const PLUGIN_NAME = 'snyk-hex-plugin';
+import { debug, init } from './debug';
 
 interface Options {
   debug?: boolean; // true will print out debug messages when using the "--debug" flag
   dev?: boolean; // will include dependencies that are limited to non :prod environments
   projectName?: string; // will be the value of the '--project-name' flag if used.
+  path: string;
+  targetFile?: string;
 }
 
-export async function scan(
-  root: string,
-  targetFile = 'mix.exs',
-  options: Options = {},
-): Promise<PluginResponse> {
-  options.debug ? debugLib.enable(PLUGIN_NAME) : debugLib.disable();
+const MANIFEST_FILE_NAME = 'mix.exs';
+
+export async function scan(options: Options): Promise<PluginResponse> {
+  init(options.debug);
+
+  const targetFile = path.parse(
+    path.resolve(options.path, options.targetFile || MANIFEST_FILE_NAME),
+  );
+
+  if (targetFile.base !== MANIFEST_FILE_NAME) {
+    throw new Error("target file must be 'mix.exs'.");
+  }
 
   const [, , mixResult] = await Promise.all([
     verifyHexInstalled(),
-    verifyMixInstalled(root),
-    getMixResult(root),
+    verifyMixInstalled(),
+    getMixResult(targetFile.dir),
   ]);
 
-  const depGraph = buildDepGraph(mixResult, !!options.dev, true);
-
-  return {
-    scanResults: [
-      {
-        identity: {
-          type: 'Hex',
-          targetFile: normalizePath(path.resolve(root, targetFile)),
-        },
-        facts: [
-          {
-            type: 'depGraph',
-            data: depGraph,
-          },
-        ],
-        ...(options.projectName ? { name: options.projectName } : {}),
+  const depGraphMap = buildDepGraphs(mixResult, !!options.dev, true);
+  const scanResults = Object.entries(depGraphMap).map(([name, depGraph]) => {
+    const isRoot = name === 'root';
+    return {
+      identity: {
+        type: 'hex',
+        targetFile: normalizePath(
+          path.relative(
+            options.path,
+            path.resolve(targetFile.dir, isRoot ? '' : name, targetFile.base),
+          ),
+        ),
       },
-    ],
-  };
+      facts: [
+        {
+          type: 'depGraph',
+          data: depGraph,
+        },
+      ],
+      ...(isRoot && options.projectName ? { name: options.projectName } : {}),
+    };
+  });
+
+  return { scanResults };
 }
 
 async function verifyHexInstalled() {
@@ -59,24 +69,35 @@ async function verifyHexInstalled() {
   }
 }
 
-async function verifyMixInstalled(root: string) {
-  const mixVersion = await subProcess.execute('mix', ['-v'], { cwd: root });
+async function verifyMixInstalled() {
+  const mixVersion = await subProcess.execute('mix', ['-v']);
   debug(`mix version: `, mixVersion);
 }
 
 async function getMixResult(root: string): Promise<MixJsonResult> {
   const cwd = path.join(__dirname, '../elixirsrc');
 
-  const output = await subProcess.execute('mix', ['read.mix', root], { cwd });
-  const fileName = output.trim().split('\n').pop();
-  if (!fileName) throw new Error('No json file found.');
-  const filePath = path.resolve(cwd, fileName);
-
+  let filePath: string | undefined;
   try {
+    const output = await subProcess.execute('mix', ['read.mix', root], { cwd });
+    debug(`read.mix output: ${output}`);
+
+    const fileName = output.trim().split('\n').pop();
+    debug(`fileName: ${fileName}`);
+
+    filePath = path.resolve(cwd, fileName!);
     const result = (await fs.promises.readFile(filePath, 'utf8')) as string;
     return JSON.parse(result) as MixJsonResult;
+  } catch (err) {
+    const errorMessage = `Error parsing manifest file on ${root}`;
+    debug(errorMessage, err);
+    throw new Error(errorMessage);
   } finally {
-    await fs.promises.unlink(filePath);
+    if (filePath) {
+      await fs.promises
+        .unlink(filePath)
+        .catch((err) => debug(`can't remove ${filePath}`, err));
+    }
   }
 }
 
