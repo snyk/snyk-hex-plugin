@@ -4,4 +4,5 @@ module.exports = {
   testMatch: ['**/*.test.ts'],
   collectCoverageFrom: ['lib/**/*.ts'],
   coverageReporters: ['text-summary', 'html'],
+  testTimeout: 20000
 };
