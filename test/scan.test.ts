@@ -4,10 +4,9 @@ import { ScanResult } from '../lib/types';
 import { cleanTargetFile } from './utils';
 
 describe('scan', () => {
-  it('simple fixture works', async () => {
-    const result = await runFixture('simple');
-
-    expect(clean(result.scanResults[0])).toMatchSnapshot();
+  describe('fixtures', () => {
+    verifyFixture('simple');
+    verifyFixture('umbrella');
   });
 
   it('broken manifest file throws', async () => {
@@ -30,6 +29,20 @@ describe('scan', () => {
     ).rejects.toThrow(/mix\.exs/);
   });
 });
+
+function verifyFixture(fixtureName: string) {
+  it(fixtureName, async () => {
+    const result = await runFixture(fixtureName);
+
+    expect(result.scanResults?.length).toMatchSnapshot('length');
+
+    for (const scanResult of result.scanResults) {
+      expect(clean(scanResult)).toMatchSnapshot(
+        cleanTargetFile(scanResult.identity.targetFile!),
+      );
+    }
+  });
+}
 
 function runFixture(fixtureName: string, options?: any) {
   return scan({

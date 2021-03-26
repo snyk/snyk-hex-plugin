@@ -10,39 +10,44 @@ interface Options {
 
 const PLUGIN_NAME = 'snyk-hex-plugin';
 
-export type InspectResult = {
-  plugin: { targetFile: string; name: string; runtime: string | undefined };
-  dependencyGraph: DepGraph;
-};
+export interface MultiProjectResult {
+  plugin: { name: string; runtime: string | undefined };
+  scannedProjects: ScannedProject[];
+}
+
+export interface ScannedProject {
+  packageManager: string;
+  depGraph?: DepGraph;
+  targetFile: string;
+  meta?: any;
+}
 
 export async function inspect(
   root: string,
   targetFile: string,
   options: Options = {},
-): Promise<InspectResult> {
+): Promise<MultiProjectResult> {
   const { debug, dev } = options;
 
-  const [scanResults, pluginVersion] = await Promise.all([
+  const [scanResult, pluginVersion] = await Promise.all([
     scan({ debug, dev, path: root, targetFile }),
     getPluginVersion(),
   ]);
 
-  const {
-    scanResults: [
-      {
-        identity,
-        facts: [{ data: depGraph }],
-      },
-    ],
-  } = scanResults;
+  const scannedProjects = scanResult.scanResults.map(
+    ({ identity, facts: [{ data: depGraph }] }) => ({
+      packageManager: 'hex',
+      targetFile: identity.targetFile!,
+      depGraph,
+    }),
+  );
 
   return {
     plugin: {
-      targetFile: identity.targetFile!,
       name: PLUGIN_NAME,
       runtime: pluginVersion,
     },
-    dependencyGraph: depGraph,
+    scannedProjects,
   };
 }
 

@@ -32,6 +32,7 @@ export function execute(
         );
         return reject(stdout || stderr);
       }
+      debug(`Sub process stderr:`, stderr);
       resolve(stdout || stderr);
     });
   });
