@@ -7,6 +7,7 @@ describe('scan', () => {
   describe('fixtures', () => {
     verifyFixture('simple');
     verifyFixture('umbrella');
+    verifyFixture('regex');
   });
 
   it('broken manifest file throws', async () => {

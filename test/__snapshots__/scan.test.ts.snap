@@ -1,5 +1,315 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`scan fixtures regex: length 1`] = `1`;
+
+exports[`scan fixtures regex: mix.exs 1`] = `
+Object {
+  "facts": Array [
+    Object {
+      "data": Object {
+        "graph": Object {
+          "nodes": Array [
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "poolboy@1.5.2",
+                },
+                Object {
+                  "nodeId": "backoff@1.1.6",
+                },
+                Object {
+                  "nodeId": "ecto@3.5.5",
+                },
+                Object {
+                  "nodeId": "dialyxir@1.1.0",
+                },
+                Object {
+                  "nodeId": "ex_doc@0.23.0",
+                },
+                Object {
+                  "nodeId": "meck@0.9.2",
+                },
+              ],
+              "nodeId": "root-node",
+              "pkgId": "snowflex@0.3.1",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "poolboy@1.5.2",
+              "pkgId": "poolboy@1.5.2",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "backoff@1.1.6",
+              "pkgId": "backoff@1.1.6",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "decimal@2.0.0",
+                },
+                Object {
+                  "nodeId": "telemetry@0.4.2",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "ecto@3.5.5",
+              "pkgId": "ecto@3.5.5",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "erlex@0.2.6",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "dialyxir@1.1.0",
+              "pkgId": "dialyxir@1.1.0",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "earmark_parser@1.4.10",
+                },
+                Object {
+                  "nodeId": "makeup_elixir@0.15.0",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "ex_doc@0.23.0",
+              "pkgId": "ex_doc@0.23.0",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "meck@0.9.2",
+              "pkgId": "meck@0.9.2",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "decimal@2.0.0",
+              "pkgId": "decimal@2.0.0",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "telemetry@0.4.2",
+              "pkgId": "telemetry@0.4.2",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "erlex@0.2.6",
+              "pkgId": "erlex@0.2.6",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "earmark_parser@1.4.10",
+              "pkgId": "earmark_parser@1.4.10",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "makeup@1.0.5",
+                },
+                Object {
+                  "nodeId": "nimble_parsec@1.1.0",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "makeup_elixir@0.15.0",
+              "pkgId": "makeup_elixir@0.15.0",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "nimble_parsec@1.1.0",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "makeup@1.0.5",
+              "pkgId": "makeup@1.0.5",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "dev",
+                },
+              },
+              "nodeId": "nimble_parsec@1.1.0",
+              "pkgId": "nimble_parsec@1.1.0",
+            },
+          ],
+          "rootNodeId": "root-node",
+        },
+        "pkgManager": Object {
+          "name": "hex",
+        },
+        "pkgs": Array [
+          Object {
+            "id": "snowflex@0.3.1",
+            "info": Object {
+              "name": "snowflex",
+              "version": "0.3.1",
+            },
+          },
+          Object {
+            "id": "poolboy@1.5.2",
+            "info": Object {
+              "name": "poolboy",
+              "version": "1.5.2",
+            },
+          },
+          Object {
+            "id": "backoff@1.1.6",
+            "info": Object {
+              "name": "backoff",
+              "version": "1.1.6",
+            },
+          },
+          Object {
+            "id": "ecto@3.5.5",
+            "info": Object {
+              "name": "ecto",
+              "version": "3.5.5",
+            },
+          },
+          Object {
+            "id": "dialyxir@1.1.0",
+            "info": Object {
+              "name": "dialyxir",
+              "version": "1.1.0",
+            },
+          },
+          Object {
+            "id": "ex_doc@0.23.0",
+            "info": Object {
+              "name": "ex_doc",
+              "version": "0.23.0",
+            },
+          },
+          Object {
+            "id": "meck@0.9.2",
+            "info": Object {
+              "name": "meck",
+              "version": "0.9.2",
+            },
+          },
+          Object {
+            "id": "decimal@2.0.0",
+            "info": Object {
+              "name": "decimal",
+              "version": "2.0.0",
+            },
+          },
+          Object {
+            "id": "telemetry@0.4.2",
+            "info": Object {
+              "name": "telemetry",
+              "version": "0.4.2",
+            },
+          },
+          Object {
+            "id": "erlex@0.2.6",
+            "info": Object {
+              "name": "erlex",
+              "version": "0.2.6",
+            },
+          },
+          Object {
+            "id": "earmark_parser@1.4.10",
+            "info": Object {
+              "name": "earmark_parser",
+              "version": "1.4.10",
+            },
+          },
+          Object {
+            "id": "makeup_elixir@0.15.0",
+            "info": Object {
+              "name": "makeup_elixir",
+              "version": "0.15.0",
+            },
+          },
+          Object {
+            "id": "makeup@1.0.5",
+            "info": Object {
+              "name": "makeup",
+              "version": "1.0.5",
+            },
+          },
+          Object {
+            "id": "nimble_parsec@1.1.0",
+            "info": Object {
+              "name": "nimble_parsec",
+              "version": "1.1.0",
+            },
+          },
+        ],
+        "schemaVersion": "1.2.0",
+      },
+      "type": "depGraph",
+    },
+  ],
+  "identify": Object {
+    "targetFile": "mix.exs",
+    "type": "hex",
+  },
+}
+`;
+
 exports[`scan fixtures simple: length 1`] = `1`;
 
 exports[`scan fixtures simple: mix.exs 1`] = `
