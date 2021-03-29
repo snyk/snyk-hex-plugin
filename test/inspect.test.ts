@@ -1,31 +1,41 @@
 import { inspect } from '../lib';
 import * as path from 'path';
 import { cleanTargetFile } from './utils';
-import { InspectResult } from '../lib/inspect';
+import { ScannedProject } from '../lib/inspect';
 
 describe('inspect', () => {
-  it('simple fixture', async () => {
+  verifyFixture('simple');
+  verifyFixture('umbrella');
+});
+
+function verifyFixture(fixtureName: string) {
+  it(fixtureName, async () => {
     const result = await inspect(
-      path.resolve(__dirname, 'fixtures/simple'),
+      path.resolve(__dirname, `fixtures/${fixtureName}`),
       'mix.exs',
       { dev: true },
     );
 
-    expect(clean(result)).toMatchSnapshot();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {
+      plugin: { runtime, ...plugin },
+      scannedProjects,
+    } = result;
+
+    expect(plugin).toMatchSnapshot('plugin');
+    expect(scannedProjects?.length).toMatchSnapshot('length');
+
+    for (const scannedProject of scannedProjects) {
+      expect(clean(scannedProject)).toMatchSnapshot(
+        cleanTargetFile(scannedProject.targetFile),
+      );
+    }
   });
-});
+}
 
-function clean(result: InspectResult) {
-  const {
-    plugin: { targetFile, name },
-    dependencyGraph,
-  } = result;
-
+function clean(scannedProject: ScannedProject) {
   return {
-    plugin: {
-      targetFile: cleanTargetFile(targetFile),
-      name,
-    },
-    dependencyGraph,
+    ...scannedProject,
+    targetFile: cleanTargetFile(scannedProject.targetFile!),
   };
 }
