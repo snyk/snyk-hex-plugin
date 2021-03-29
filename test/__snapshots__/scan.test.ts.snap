@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`scan simple fixture 1`] = `
+exports[`scan simple fixture works 1`] = `
 Object {
   "facts": Array [
     Object {
@@ -302,8 +302,8 @@ Object {
     },
   ],
   "identify": Object {
-    "targetFile": "fixtures/simple/mix.exs",
-    "type": "Hex",
+    "targetFile": "mix.exs",
+    "type": "hex",
   },
 }
 `;

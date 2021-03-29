@@ -10,3 +10,4 @@ yarn.lock
 .eslintcache
 .idea
 elixirsrc/_build
+elixirsrc/erl_crash.dump

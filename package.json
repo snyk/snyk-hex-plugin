@@ -23,7 +23,7 @@
     "lint": "npm run format:check && npm run lint:eslint",
     "lint:eslint": "eslint --color --cache 'lib/**/*.{js,ts}'",
     "test": "npm run test:unit",
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --runInBand",
     "test:watch": "tsc-watch --onSuccess 'npm run test:unit'",
     "build": "tsc",
     "build-watch": "tsc -w",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@snyk/dep-graph": "^1.28.0",
-    "@snyk/mix-parser": "^1.0.0",
+    "@snyk/mix-parser": "^1.1.0",
     "debug": "^4.3.1",
     "tslib": "^2.0.0"
   },
