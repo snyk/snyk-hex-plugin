@@ -41,6 +41,7 @@ defmodule Snowflex.MixProject do
 
   defp deps do
     [
+      {:pow, "1.0.15"},
       {:poolboy, "~> 1.5.1"},
       {:backoff, "~> 1.1.6"},
       {:ecto, "~> 3.0"},

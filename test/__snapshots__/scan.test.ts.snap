@@ -322,6 +322,9 @@ Object {
             Object {
               "deps": Array [
                 Object {
+                  "nodeId": "pow@1.0.15",
+                },
+                Object {
                   "nodeId": "poolboy@1.5.2",
                 },
                 Object {
@@ -342,6 +345,29 @@ Object {
               ],
               "nodeId": "root-node",
               "pkgId": "snowflex@0.3.1",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "ecto@3.5.5",
+                },
+                Object {
+                  "nodeId": "phoenix@1.4.17",
+                },
+                Object {
+                  "nodeId": "phoenix_html@2.14.3",
+                },
+                Object {
+                  "nodeId": "plug@1.11.1",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "pow@1.0.15",
+              "pkgId": "pow@1.0.15",
             },
             Object {
               "deps": Array [],
@@ -422,6 +448,60 @@ Object {
               "pkgId": "meck@0.9.2",
             },
             Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "phoenix_pubsub@1.1.2",
+                },
+                Object {
+                  "nodeId": "plug@1.11.1",
+                },
+                Object {
+                  "nodeId": "telemetry@0.4.2",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "phoenix@1.4.17",
+              "pkgId": "phoenix@1.4.17",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "plug@1.11.1",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "phoenix_html@2.14.3",
+              "pkgId": "phoenix_html@2.14.3",
+            },
+            Object {
+              "deps": Array [
+                Object {
+                  "nodeId": "mime@1.5.0",
+                },
+                Object {
+                  "nodeId": "plug_crypto@1.2.2",
+                },
+                Object {
+                  "nodeId": "telemetry@0.4.2",
+                },
+              ],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "plug@1.11.1",
+              "pkgId": "plug@1.11.1",
+            },
+            Object {
               "deps": Array [],
               "info": Object {
                 "labels": Object {
@@ -479,6 +559,36 @@ Object {
               "pkgId": "makeup_elixir@0.15.0",
             },
             Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "phoenix_pubsub@1.1.2",
+              "pkgId": "phoenix_pubsub@1.1.2",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "mime@1.5.0",
+              "pkgId": "mime@1.5.0",
+            },
+            Object {
+              "deps": Array [],
+              "info": Object {
+                "labels": Object {
+                  "scope": "prod",
+                },
+              },
+              "nodeId": "plug_crypto@1.2.2",
+              "pkgId": "plug_crypto@1.2.2",
+            },
+            Object {
               "deps": Array [
                 Object {
                   "nodeId": "nimble_parsec@1.1.0",
@@ -514,6 +624,13 @@ Object {
             "info": Object {
               "name": "snowflex",
               "version": "0.3.1",
+            },
+          },
+          Object {
+            "id": "pow@1.0.15",
+            "info": Object {
+              "name": "pow",
+              "version": "1.0.15",
             },
           },
           Object {
@@ -559,6 +676,27 @@ Object {
             },
           },
           Object {
+            "id": "phoenix@1.4.17",
+            "info": Object {
+              "name": "phoenix",
+              "version": "1.4.17",
+            },
+          },
+          Object {
+            "id": "phoenix_html@2.14.3",
+            "info": Object {
+              "name": "phoenix_html",
+              "version": "2.14.3",
+            },
+          },
+          Object {
+            "id": "plug@1.11.1",
+            "info": Object {
+              "name": "plug",
+              "version": "1.11.1",
+            },
+          },
+          Object {
             "id": "decimal@2.0.0",
             "info": Object {
               "name": "decimal",
@@ -591,6 +729,27 @@ Object {
             "info": Object {
               "name": "makeup_elixir",
               "version": "0.15.0",
+            },
+          },
+          Object {
+            "id": "phoenix_pubsub@1.1.2",
+            "info": Object {
+              "name": "phoenix_pubsub",
+              "version": "1.1.2",
+            },
+          },
+          Object {
+            "id": "mime@1.5.0",
+            "info": Object {
+              "name": "mime",
+              "version": "1.5.0",
+            },
+          },
+          Object {
+            "id": "plug_crypto@1.2.2",
+            "info": Object {
+              "name": "plug_crypto",
+              "version": "1.2.2",
             },
           },
           Object {
