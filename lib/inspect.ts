@@ -11,7 +11,7 @@ interface Options {
 const PLUGIN_NAME = 'snyk-hex-plugin';
 
 export interface MultiProjectResult {
-  plugin: { name: string; runtime: string | undefined };
+  plugin: { name: string; runtime: string | undefined; targetFile: string };
   scannedProjects: ScannedProject[];
 }
 
@@ -46,6 +46,7 @@ export async function inspect(
     plugin: {
       name: PLUGIN_NAME,
       runtime: pluginVersion,
+      targetFile: 'mix.exs',
     },
     scannedProjects,
   };
