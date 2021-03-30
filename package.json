@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@snyk/dep-graph": "^1.28.0",
-    "@snyk/mix-parser": "^1.1.0",
+    "@snyk/mix-parser": "^1.1.1",
     "debug": "^4.3.1",
     "tslib": "^2.0.0"
   },
