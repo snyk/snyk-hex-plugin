@@ -26,11 +26,10 @@ export async function scan(options: Options): Promise<PluginResponse> {
     throw new Error("target file must be 'mix.exs'.");
   }
 
-  const [, , mixResult] = await Promise.all([
-    verifyHexInstalled(),
-    verifyMixInstalled(),
-    getMixResult(targetFile.dir),
-  ]);
+  await verifyMixInstalled();
+  await verifyHexInstalled();
+
+  const mixResult = await getMixResult(targetFile.dir);
 
   const depGraphMap = buildDepGraphs(mixResult, !!options.dev, true);
   const scanResults = Object.entries(depGraphMap).map(([name, depGraph]) => {
@@ -70,8 +69,14 @@ async function verifyHexInstalled() {
 }
 
 async function verifyMixInstalled() {
-  const mixVersion = await subProcess.execute('mix', ['-v']);
-  debug(`mix version: `, mixVersion);
+  try {
+    const mixVersion = await subProcess.execute('mix', ['-v']);
+    debug(`mix version: `, mixVersion);
+  } catch {
+    throw new Error(
+      'mix is not installed. please make sure Elixir is installed and try again.',
+    );
+  }
 }
 
 async function getMixResult(root: string): Promise<MixJsonResult> {
