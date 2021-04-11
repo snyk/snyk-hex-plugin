@@ -7,7 +7,7 @@ defmodule Snyk.MixProject.Mix.Project do
 
     apps = get_apps(manifest[:apps_path], path)
 
-    lock_file_name = get_lock_file_name(manifest[:lock_file])
+    lock_file_name = get_lock_file_name(manifest[:lockfile])
     lock_file_path = Path.join(path, lock_file_name)
     lock_file = read_file(lock_file_path)
 
