@@ -1,5 +1,5 @@
 import { scan } from '../lib';
-import * as path from 'path';
+import * as path from 'upath';
 import { ScanResult } from '../lib/types';
 import { cleanTargetFile } from './utils';
 

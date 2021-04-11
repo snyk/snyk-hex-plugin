@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'upath';
 import * as fs from 'fs';
 import { buildDepGraphs, MixJsonResult } from '@snyk/mix-parser';
 import * as subProcess from './sub-process';
@@ -8,6 +8,7 @@ import { debug, init } from './debug';
 interface Options {
   debug?: boolean; // true will print out debug messages when using the "--debug" flag
   dev?: boolean; // will include dependencies that are limited to non :prod environments
+  allProjects?: boolean; // if true, will not resolve apps if tested manifest is an umbrella project
   projectName?: string; // will be the value of the '--project-name' flag if used.
   path: string;
   targetFile?: string;
@@ -31,7 +32,12 @@ export async function scan(options: Options): Promise<PluginResponse> {
 
   const mixResult = await getMixResult(targetFile.dir);
 
-  const depGraphMap = buildDepGraphs(mixResult, !!options.dev, true);
+  const depGraphMap = buildDepGraphs(
+    mixResult,
+    !!options.dev,
+    true,
+    options.allProjects,
+  );
   const scanResults = Object.entries(depGraphMap).map(([name, depGraph]) => {
     const isRoot = name === 'root';
     return {

@@ -6,6 +6,7 @@ interface Options {
   debug?: boolean;
   dev?: boolean;
   file?: string;
+  allProjects?: boolean; // if true, will not resolve apps if tested manifest is an umbrella project
 }
 
 const PLUGIN_NAME = 'snyk-hex-plugin';
@@ -27,10 +28,10 @@ export async function inspect(
   targetFile: string,
   options: Options = {},
 ): Promise<MultiProjectResult> {
-  const { debug, dev } = options;
+  const { debug, dev, allProjects } = options;
 
   const [scanResult, pluginVersion] = await Promise.all([
-    scan({ debug, dev, path: root, targetFile }),
+    scan({ debug, dev, allProjects, path: root, targetFile }),
     getPluginVersion(),
   ]);
 

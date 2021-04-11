@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils';
 
 import { scan } from '../lib';
-import * as path from 'path';
+import * as path from 'upath';
 
 import { execute } from '../lib/sub-process';
 jest.mock('../lib/sub-process', () => {

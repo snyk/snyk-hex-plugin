@@ -10,11 +10,16 @@ defmodule Snyk.MixProject.Mix.Project do
     lock_file_name = get_lock_file_name(manifest[:lockfile])
     lock_file_path = Path.join(path, lock_file_name)
     lock_file = read_file(lock_file_path)
+    parent_umbrella_manifest = case Path.dirname(lock_file_path) do
+      ^path -> nil
+      parent_path -> load_manifest(parent_path, "parent_app")
+    end
 
     %{
       manifest: manifest,
       lock: lock_file,
-      apps: apps
+      apps: apps,
+      parent_umbrella_manifest: parent_umbrella_manifest
     }
   end
 
@@ -29,9 +34,13 @@ defmodule Snyk.MixProject.Mix.Project do
 
   defp load_manifest(path), do: load_manifest(path, "root_app")
   defp load_manifest(path, app) do
-    Mix.Project.in_project(String.to_atom(app), path, fn module ->
-      module.project ++ [module_name: inspect(module)]
-    end)
+    Mix.Project.in_project(
+      String.to_atom(app),
+      path,
+      fn module ->
+        module.project ++ [module_name: inspect(module)]
+      end
+    )
   end
 
   defp get_apps(nil, _), do: nil
