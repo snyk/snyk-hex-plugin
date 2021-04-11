@@ -469,6 +469,238 @@ Object {
 }
 `;
 
+exports[`inspect umbrella/apps/api: length 1`] = `1`;
+
+exports[`inspect umbrella/apps/api: mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "core@in_umbrella",
+            },
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "phoenix@1.3.4",
+            },
+          ],
+          "nodeId": "root-node",
+          "pkgId": "api@0.1.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "missingLockFileEntry": "true",
+              "scope": "prod",
+            },
+          },
+          "nodeId": "core@in_umbrella",
+          "pkgId": "core@in_umbrella",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowlib@1.0.2",
+            },
+            Object {
+              "nodeId": "ranch@1.3.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "cowboy@1.1.2",
+          "pkgId": "cowboy@1.1.2",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "phoenix_pubsub@1.1.0",
+            },
+            Object {
+              "nodeId": "plug@1.6.3",
+            },
+            Object {
+              "nodeId": "poison@3.1.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix@1.3.4",
+          "pkgId": "phoenix@1.3.4",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "cowlib@1.0.2",
+          "pkgId": "cowlib@1.0.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "ranch@1.3.2",
+          "pkgId": "ranch@1.3.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix_pubsub@1.1.0",
+          "pkgId": "phoenix_pubsub@1.1.0",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "mime@1.3.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "plug@1.6.3",
+          "pkgId": "plug@1.6.3",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "poison@3.1.0",
+          "pkgId": "poison@3.1.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "mime@1.3.0",
+          "pkgId": "mime@1.3.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "api@0.1.0",
+        "info": Object {
+          "name": "api",
+          "version": "0.1.0",
+        },
+      },
+      Object {
+        "id": "core@in_umbrella",
+        "info": Object {
+          "name": "core",
+          "version": "in_umbrella",
+        },
+      },
+      Object {
+        "id": "cowboy@1.1.2",
+        "info": Object {
+          "name": "cowboy",
+          "version": "1.1.2",
+        },
+      },
+      Object {
+        "id": "phoenix@1.3.4",
+        "info": Object {
+          "name": "phoenix",
+          "version": "1.3.4",
+        },
+      },
+      Object {
+        "id": "cowlib@1.0.2",
+        "info": Object {
+          "name": "cowlib",
+          "version": "1.0.2",
+        },
+      },
+      Object {
+        "id": "ranch@1.3.2",
+        "info": Object {
+          "name": "ranch",
+          "version": "1.3.2",
+        },
+      },
+      Object {
+        "id": "phoenix_pubsub@1.1.0",
+        "info": Object {
+          "name": "phoenix_pubsub",
+          "version": "1.1.0",
+        },
+      },
+      Object {
+        "id": "plug@1.6.3",
+        "info": Object {
+          "name": "plug",
+          "version": "1.6.3",
+        },
+      },
+      Object {
+        "id": "poison@3.1.0",
+        "info": Object {
+          "name": "poison",
+          "version": "3.1.0",
+        },
+      },
+      Object {
+        "id": "mime@1.3.0",
+        "info": Object {
+          "name": "mime",
+          "version": "1.3.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "packageManager": "hex",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella/apps/api: plugin 1`] = `
+Object {
+  "name": "snyk-hex-plugin",
+  "targetFile": "mix.exs",
+}
+`;
+
 exports[`inspect umbrella: apps/api/mix.exs 1`] = `
 Object {
   "depGraph": Object {

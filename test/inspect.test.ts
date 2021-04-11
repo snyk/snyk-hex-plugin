@@ -6,6 +6,7 @@ import { ScannedProject } from '../lib/inspect';
 describe('inspect', () => {
   verifyFixture('simple');
   verifyFixture('umbrella');
+  verifyFixture('umbrella/apps/api');
 });
 
 function verifyFixture(fixtureName: string) {
