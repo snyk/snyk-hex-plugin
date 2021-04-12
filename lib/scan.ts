@@ -38,27 +38,29 @@ export async function scan(options: Options): Promise<PluginResponse> {
     true,
     options.allProjects,
   );
-  const scanResults = Object.entries(depGraphMap).map(([name, depGraph]) => {
-    const isRoot = name === 'root';
-    return {
-      identity: {
-        type: 'hex',
-        targetFile: normalizePath(
-          path.relative(
-            options.path,
-            path.resolve(targetFile.dir, isRoot ? '' : name, targetFile.base),
+  const scanResults = Object.entries(depGraphMap).map(
+    ([name, depGraph], index) => {
+      const isRoot = index === 0;
+      return {
+        identity: {
+          type: 'hex',
+          targetFile: normalizePath(
+            path.relative(
+              options.path,
+              path.resolve(targetFile.dir, isRoot ? '' : name, targetFile.base),
+            ),
           ),
-        ),
-      },
-      facts: [
-        {
-          type: 'depGraph',
-          data: depGraph,
         },
-      ],
-      ...(isRoot && options.projectName ? { name: options.projectName } : {}),
-    };
-  });
+        facts: [
+          {
+            type: 'depGraph',
+            data: depGraph,
+          },
+        ],
+        ...(isRoot && options.projectName ? { name: options.projectName } : {}),
+      };
+    },
+  );
 
   return { scanResults };
 }
