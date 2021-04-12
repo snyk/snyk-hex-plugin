@@ -469,9 +469,48 @@ Object {
 }
 `;
 
-exports[`inspect umbrella/apps/api: length 1`] = `1`;
+exports[`inspect umbrella, allProjects = true: length 1`] = `1`;
 
-exports[`inspect umbrella/apps/api: mix.exs 1`] = `
+exports[`inspect umbrella, allProjects = true: mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [],
+          "nodeId": "root-node",
+          "pkgId": "sampleapp@0.0.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "sampleapp@0.0.0",
+        "info": Object {
+          "name": "sampleapp",
+          "version": "0.0.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "packageManager": "hex",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella, allProjects = true: plugin 1`] = `
+Object {
+  "name": "snyk-hex-plugin",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella/apps/api: apps/api/mix.exs 1`] = `
 Object {
   "depGraph": Object {
     "graph": Object {
@@ -489,7 +528,7 @@ Object {
             },
           ],
           "nodeId": "root-node",
-          "pkgId": "api@0.1.0",
+          "pkgId": "sampleapp/apps/api@0.1.0",
         },
         Object {
           "deps": Array [],
@@ -617,9 +656,9 @@ Object {
     },
     "pkgs": Array [
       Object {
-        "id": "api@0.1.0",
+        "id": "sampleapp/apps/api@0.1.0",
         "info": Object {
-          "name": "api",
+          "name": "sampleapp/apps/api",
           "version": "0.1.0",
         },
       },
@@ -690,9 +729,11 @@ Object {
     "schemaVersion": "1.2.0",
   },
   "packageManager": "hex",
-  "targetFile": "mix.exs",
+  "targetFile": "apps/api/mix.exs",
 }
 `;
+
+exports[`inspect umbrella/apps/api: length 1`] = `1`;
 
 exports[`inspect umbrella/apps/api: plugin 1`] = `
 Object {

@@ -1,5 +1,5 @@
 import { inspect } from '../lib';
-import * as path from 'path';
+import * as path from 'upath';
 import { cleanTargetFile } from './utils';
 import { ScannedProject } from '../lib/inspect';
 
@@ -7,18 +7,19 @@ describe('inspect', () => {
   verifyFixture('simple');
   verifyFixture('umbrella');
   verifyFixture('umbrella/apps/api');
+  verifyFixture('umbrella', true);
 });
 
-function verifyFixture(fixtureName: string) {
-  it(fixtureName, async () => {
+function verifyFixture(fixtureName: string, allProjects = false) {
+  it(`${fixtureName}${allProjects ? ', allProjects = true' : ''}`, async () => {
     const result = await inspect(
       path.resolve(__dirname, `fixtures/${fixtureName}`),
       'mix.exs',
-      { dev: true },
+      { dev: true, allProjects },
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       plugin: { runtime, ...plugin },
       scannedProjects,
     } = result;
