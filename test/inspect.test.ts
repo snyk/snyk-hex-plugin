@@ -7,14 +7,21 @@ describe('inspect', () => {
   verifyFixture('simple');
   verifyFixture('umbrella');
   verifyFixture('umbrella/apps/api');
-  verifyFixture('umbrella', true);
+  verifyFixture('umbrella', 'mix.exs', true);
+  verifyFixture('umbrella', 'apps/api/mix.exs', true);
 });
 
-function verifyFixture(fixtureName: string, allProjects = false) {
-  it(`${fixtureName}${allProjects ? ', allProjects = true' : ''}`, async () => {
+function verifyFixture(
+  fixtureName: string,
+  targetFile = 'mix.exs',
+  allProjects = false,
+) {
+  it(`${fixtureName}${targetFile === 'mix.exs' ? '' : '/' + targetFile}${
+    allProjects ? ', allProjects = true' : ''
+  }`, async () => {
     const result = await inspect(
       path.resolve(__dirname, `fixtures/${fixtureName}`),
-      'mix.exs',
+      targetFile,
       { dev: true, allProjects },
     );
 
