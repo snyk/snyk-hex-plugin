@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as tmp from 'tmp';
+
 import { buildDepGraphs, MixJsonResult } from '@snyk/mix-parser';
 import * as subProcess from './sub-process';
 import { PluginResponse } from './types';
@@ -13,10 +15,87 @@ interface Options {
   targetFile?: string;
 }
 
+function createAssets() {
+  return [
+    path.join(__dirname, '../elixirsrc/mix.exs'),
+    path.join(__dirname, '../elixirsrc/mix.lock'),
+    path.join(__dirname, '../elixirsrc/lib/mix/tasks/read.mix.ex'),
+    path.join(__dirname, '../elixirsrc/lib/common.ex'),
+    path.join(__dirname, '../elixirsrc/lib/mix_project.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/.hex'),
+    path.join(__dirname, '../elixirsrc/deps/json/mix.exs'),
+    path.join(__dirname, '../elixirsrc/deps/json/LICENSE'),
+    path.join(__dirname, '../elixirsrc/deps/json/.fetch'),
+    path.join(__dirname, '../elixirsrc/deps/json/README.md'),
+    path.join(__dirname, '../elixirsrc/deps/json/hex_metadata.config'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/encoder.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/logger.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/decoder.ex'),
+    path.join(
+      __dirname,
+      '../elixirsrc/deps/json/lib/json/encoder/default_implementations.ex',
+    ),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/encoder/errors.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/encoder/helpers.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser/number.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser/object.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser/unicode.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser/string.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser/array.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json/parser.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/lib/json.ex'),
+    path.join(__dirname, '../elixirsrc/deps/json/.formatter.exs'),
+  ];
+}
+
+function getFilePathRelativeToDumpDir(filePath: string) {
+  let pathParts = filePath.split('\\elixirsrc\\');
+
+  // Windows
+  if (pathParts.length > 1) {
+    return pathParts[1];
+  }
+
+  // Unix
+  pathParts = filePath.split('/elixirsrc/');
+  return pathParts[1];
+}
+
+function writeFile(writeFilePath: string, contents: string) {
+  const dirPath = path.dirname(writeFilePath);
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+  fs.writeFileSync(writeFilePath, contents);
+}
+
+function dumpAllFilesInTempDir(tempDirName: string) {
+  createAssets().forEach((currentReadFilePath) => {
+    if (!fs.existsSync(currentReadFilePath)) {
+      throw new Error('The file `' + currentReadFilePath + '` is missing');
+    }
+
+    const relFilePathToDumpDir = getFilePathRelativeToDumpDir(
+      currentReadFilePath,
+    );
+
+    const writeFilePath = path.join(tempDirName, relFilePathToDumpDir);
+
+    const contents = fs.readFileSync(currentReadFilePath, 'utf8');
+    writeFile(writeFilePath, contents);
+  });
+}
+
 const MANIFEST_FILE_NAME = 'mix.exs';
 
 export async function scan(options: Options): Promise<PluginResponse> {
   init(options.debug);
+
+  const tempDirObj = tmp.dirSync({
+    unsafeCleanup: true,
+  });
+
+  dumpAllFilesInTempDir(tempDirObj.name);
 
   const targetFile = path.parse(
     path.resolve(options.path, options.targetFile || MANIFEST_FILE_NAME),
