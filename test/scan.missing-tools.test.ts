@@ -15,23 +15,15 @@ afterEach(() => {
 describe('scan', () => {
   it('Invalid mix/elixir', () => {
     mocked(execute).mockImplementation(
-      getMockedExecutionFunction('reject', 'reject', 'reject'),
+      getMockedExecutionFunction('reject', 'reject'),
     );
     expect(() => runFixture('simple')).rejects.toThrow(
       'mix is not installed. please make sure Elixir is installed and try again.',
     );
   });
-  it('Invalid hex but valid mix/elixir', () => {
+  it('Valid mix reaches the getMixResult function', async () => {
     mocked(execute).mockImplementation(
-      getMockedExecutionFunction('resolve', 'reject', 'reject'),
-    );
-    expect(() => runFixture('simple')).rejects.toThrow(
-      'hex is not installed. please run `mix local.hex` and try again.',
-    );
-  });
-  it('Valid hex and mix reaches the getMixResult function', async () => {
-    mocked(execute).mockImplementation(
-      getMockedExecutionFunction('resolve', 'resolve', 'reject'),
+      getMockedExecutionFunction('resolve', 'reject'),
     );
     expect(() => runFixture('bad-manifest')).rejects.toThrow(
       /Error parsing manifest file/,
@@ -47,7 +39,6 @@ type ExecutionMockFunction = (
 
 const getMockedExecutionFunction = (
   mixOutcome: MockOutcome,
-  hexOutcome: MockOutcome,
   generalOutcome: MockOutcome,
 ): ExecutionMockFunction => (command: string, args: string[]) => {
   const getOutcomePromise = (outcome: MockOutcome) => {
@@ -59,9 +50,7 @@ const getMockedExecutionFunction = (
   if (command === 'mix' && args[0] === '-v') {
     return getOutcomePromise(mixOutcome);
   }
-  if (command === 'mix' && args[0] === 'hex.info') {
-    return getOutcomePromise(hexOutcome);
-  }
+
   return getOutcomePromise(generalOutcome);
 };
 

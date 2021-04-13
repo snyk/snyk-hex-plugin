@@ -18,8 +18,6 @@ defmodule Snyk.MixProject do
   end
 
   defp deps do
-    [
-      {:json, "~> 1.4"},
-    ]
+    []
   end
 end
