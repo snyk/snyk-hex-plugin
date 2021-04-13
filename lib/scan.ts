@@ -4,6 +4,7 @@ import { buildDepGraphs, MixJsonResult } from '@snyk/mix-parser';
 import * as subProcess from './sub-process';
 import { PluginResponse } from './types';
 import { debug, init } from './debug';
+import { copyElixirCodeToTempDir } from './copy-elixir-code-to-temp-dir';
 
 interface Options {
   debug?: boolean; // true will print out debug messages when using the "--debug" flag
@@ -76,7 +77,8 @@ async function verifyMixInstalled() {
 }
 
 async function getMixResult(root: string): Promise<MixJsonResult> {
-  const cwd = path.join(__dirname, '../elixirsrc');
+  const elixirTmpDir = copyElixirCodeToTempDir();
+  const cwd = elixirTmpDir.name;
 
   let filePath: string | undefined;
   try {
@@ -94,10 +96,10 @@ async function getMixResult(root: string): Promise<MixJsonResult> {
     debug(errorMessage, err);
     throw new Error(errorMessage);
   } finally {
-    if (filePath) {
-      await fs.promises
-        .unlink(filePath)
-        .catch((err) => debug(`can't remove ${filePath}`, err));
+    try {
+      elixirTmpDir.removeCallback();
+    } catch (err) {
+      debug(`can't remove ${elixirTmpDir.name}`, err);
     }
   }
 }
