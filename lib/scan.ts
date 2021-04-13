@@ -28,7 +28,6 @@ export async function scan(options: Options): Promise<PluginResponse> {
   }
 
   await verifyMixInstalled();
-  await verifyHexInstalled();
 
   const mixResult = await getMixResult(targetFile.dir);
 
@@ -63,17 +62,6 @@ export async function scan(options: Options): Promise<PluginResponse> {
   );
 
   return { scanResults };
-}
-
-async function verifyHexInstalled() {
-  try {
-    const hexInfo = await subProcess.execute('mix', ['hex.info']);
-    debug(`hex info: `, hexInfo);
-  } catch (err) {
-    throw new Error(
-      'hex is not installed. please run `mix local.hex` and try again.',
-    );
-  }
 }
 
 async function verifyMixInstalled() {

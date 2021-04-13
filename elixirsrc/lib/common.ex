@@ -15,7 +15,7 @@ defmodule Snyk.MixProject.Common do
 end
 
 defimpl JSON.Encoder, for: Regex do
-  def encode(number), do: {:ok, "\"regex\""}
+  def encode(_), do: {:ok, "\"regex\""}
 
   def typeof(_), do: :string
 end
