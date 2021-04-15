@@ -41,15 +41,16 @@ export async function scan(options: Options): Promise<PluginResponse> {
   const scanResults = Object.entries(depGraphMap).map(
     ([name, depGraph], index) => {
       const isRoot = index === 0;
+      const relativePathToManifest = getRelativePathToManifest(
+        options,
+        targetFile,
+        isRoot,
+        name,
+      );
       return {
         identity: {
           type: 'hex',
-          targetFile: normalizePath(
-            path.relative(
-              options.path,
-              path.resolve(targetFile.dir, isRoot ? '' : name, targetFile.base),
-            ),
-          ),
+          targetFile: relativePathToManifest,
         },
         facts: [
           {
@@ -57,7 +58,9 @@ export async function scan(options: Options): Promise<PluginResponse> {
             data: depGraph,
           },
         ],
-        ...(isRoot && options.projectName ? { name: options.projectName } : {}),
+        ...(options.projectName
+          ? { name: getProjectNamePath(options, relativePathToManifest) }
+          : {}),
       };
     },
   );
@@ -107,4 +110,25 @@ async function getMixResult(root: string): Promise<MixJsonResult> {
 function normalizePath(filePath: string) {
   const parts = filePath.split(path.sep);
   return parts.join(path.posix.sep);
+}
+
+function getRelativePathToManifest(
+  options: Options,
+  targetFile: path.ParsedPath,
+  isRoot: boolean,
+  name: string,
+) {
+  return normalizePath(
+    path.relative(
+      options.path,
+      path.resolve(targetFile.dir, isRoot ? '' : name, targetFile.base),
+    ),
+  );
+}
+
+function getProjectNamePath(options: Options, relativePathToManifest: string) {
+  return [
+    options.projectName,
+    ...relativePathToManifest.split('/').slice(1, -1),
+  ].join('/');
 }

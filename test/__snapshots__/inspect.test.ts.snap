@@ -1,5 +1,477 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`inspect simple, renamed-package: length 1`] = `1`;
+
+exports[`inspect simple, renamed-package: mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "pow@1.0.15",
+            },
+            Object {
+              "nodeId": "poolboy@1.5.2",
+            },
+            Object {
+              "nodeId": "backoff@1.1.6",
+            },
+            Object {
+              "nodeId": "ecto@3.5.5",
+            },
+            Object {
+              "nodeId": "dialyxir@1.1.0",
+            },
+            Object {
+              "nodeId": "ex_doc@0.23.0",
+            },
+            Object {
+              "nodeId": "meck@0.9.2",
+            },
+          ],
+          "nodeId": "root-node",
+          "pkgId": "snowflex@0.3.1",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "ecto@3.5.5",
+            },
+            Object {
+              "nodeId": "phoenix@1.4.17",
+            },
+            Object {
+              "nodeId": "phoenix_html@2.14.3",
+            },
+            Object {
+              "nodeId": "plug@1.11.1",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "pow@1.0.15",
+          "pkgId": "pow@1.0.15",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "poolboy@1.5.2",
+          "pkgId": "poolboy@1.5.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "backoff@1.1.6",
+          "pkgId": "backoff@1.1.6",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "decimal@2.0.0",
+            },
+            Object {
+              "nodeId": "telemetry@0.4.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "ecto@3.5.5",
+          "pkgId": "ecto@3.5.5",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "erlex@0.2.6",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "dialyxir@1.1.0",
+          "pkgId": "dialyxir@1.1.0",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "earmark_parser@1.4.10",
+            },
+            Object {
+              "nodeId": "makeup_elixir@0.15.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "ex_doc@0.23.0",
+          "pkgId": "ex_doc@0.23.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "meck@0.9.2",
+          "pkgId": "meck@0.9.2",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "phoenix_pubsub@1.1.2",
+            },
+            Object {
+              "nodeId": "plug@1.11.1",
+            },
+            Object {
+              "nodeId": "telemetry@0.4.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix@1.4.17",
+          "pkgId": "phoenix@1.4.17",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "plug@1.11.1",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix_html@2.14.3",
+          "pkgId": "phoenix_html@2.14.3",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "mime@1.5.0",
+            },
+            Object {
+              "nodeId": "plug_crypto@1.2.2",
+            },
+            Object {
+              "nodeId": "telemetry@0.4.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "plug@1.11.1",
+          "pkgId": "plug@1.11.1",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "decimal@2.0.0",
+          "pkgId": "decimal@2.0.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "telemetry@0.4.2",
+          "pkgId": "telemetry@0.4.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "erlex@0.2.6",
+          "pkgId": "erlex@0.2.6",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "earmark_parser@1.4.10",
+          "pkgId": "earmark_parser@1.4.10",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "makeup@1.0.5",
+            },
+            Object {
+              "nodeId": "nimble_parsec@1.1.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "makeup_elixir@0.15.0",
+          "pkgId": "makeup_elixir@0.15.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix_pubsub@1.1.2",
+          "pkgId": "phoenix_pubsub@1.1.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "mime@1.5.0",
+          "pkgId": "mime@1.5.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "plug_crypto@1.2.2",
+          "pkgId": "plug_crypto@1.2.2",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "nimble_parsec@1.1.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "makeup@1.0.5",
+          "pkgId": "makeup@1.0.5",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "dev",
+            },
+          },
+          "nodeId": "nimble_parsec@1.1.0",
+          "pkgId": "nimble_parsec@1.1.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "snowflex@0.3.1",
+        "info": Object {
+          "name": "snowflex",
+          "version": "0.3.1",
+        },
+      },
+      Object {
+        "id": "pow@1.0.15",
+        "info": Object {
+          "name": "pow",
+          "version": "1.0.15",
+        },
+      },
+      Object {
+        "id": "poolboy@1.5.2",
+        "info": Object {
+          "name": "poolboy",
+          "version": "1.5.2",
+        },
+      },
+      Object {
+        "id": "backoff@1.1.6",
+        "info": Object {
+          "name": "backoff",
+          "version": "1.1.6",
+        },
+      },
+      Object {
+        "id": "ecto@3.5.5",
+        "info": Object {
+          "name": "ecto",
+          "version": "3.5.5",
+        },
+      },
+      Object {
+        "id": "dialyxir@1.1.0",
+        "info": Object {
+          "name": "dialyxir",
+          "version": "1.1.0",
+        },
+      },
+      Object {
+        "id": "ex_doc@0.23.0",
+        "info": Object {
+          "name": "ex_doc",
+          "version": "0.23.0",
+        },
+      },
+      Object {
+        "id": "meck@0.9.2",
+        "info": Object {
+          "name": "meck",
+          "version": "0.9.2",
+        },
+      },
+      Object {
+        "id": "phoenix@1.4.17",
+        "info": Object {
+          "name": "phoenix",
+          "version": "1.4.17",
+        },
+      },
+      Object {
+        "id": "phoenix_html@2.14.3",
+        "info": Object {
+          "name": "phoenix_html",
+          "version": "2.14.3",
+        },
+      },
+      Object {
+        "id": "plug@1.11.1",
+        "info": Object {
+          "name": "plug",
+          "version": "1.11.1",
+        },
+      },
+      Object {
+        "id": "decimal@2.0.0",
+        "info": Object {
+          "name": "decimal",
+          "version": "2.0.0",
+        },
+      },
+      Object {
+        "id": "telemetry@0.4.2",
+        "info": Object {
+          "name": "telemetry",
+          "version": "0.4.2",
+        },
+      },
+      Object {
+        "id": "erlex@0.2.6",
+        "info": Object {
+          "name": "erlex",
+          "version": "0.2.6",
+        },
+      },
+      Object {
+        "id": "earmark_parser@1.4.10",
+        "info": Object {
+          "name": "earmark_parser",
+          "version": "1.4.10",
+        },
+      },
+      Object {
+        "id": "makeup_elixir@0.15.0",
+        "info": Object {
+          "name": "makeup_elixir",
+          "version": "0.15.0",
+        },
+      },
+      Object {
+        "id": "phoenix_pubsub@1.1.2",
+        "info": Object {
+          "name": "phoenix_pubsub",
+          "version": "1.1.2",
+        },
+      },
+      Object {
+        "id": "mime@1.5.0",
+        "info": Object {
+          "name": "mime",
+          "version": "1.5.0",
+        },
+      },
+      Object {
+        "id": "plug_crypto@1.2.2",
+        "info": Object {
+          "name": "plug_crypto",
+          "version": "1.2.2",
+        },
+      },
+      Object {
+        "id": "makeup@1.0.5",
+        "info": Object {
+          "name": "makeup",
+          "version": "1.0.5",
+        },
+      },
+      Object {
+        "id": "nimble_parsec@1.1.0",
+        "info": Object {
+          "name": "nimble_parsec",
+          "version": "1.1.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "meta": Object {
+    "projectName": "renamed-package",
+  },
+  "packageManager": "hex",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect simple, renamed-package: plugin 1`] = `
+Object {
+  "name": "snyk-hex-plugin",
+  "targetFile": "mix.exs",
+}
+`;
+
 exports[`inspect simple: length 1`] = `1`;
 
 exports[`inspect simple: mix.exs 1`] = `
@@ -469,6 +941,50 @@ Object {
 }
 `;
 
+exports[`inspect umbrella, allProjects = true, renamed-package: length 1`] = `1`;
+
+exports[`inspect umbrella, allProjects = true, renamed-package: mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [],
+          "nodeId": "root-node",
+          "pkgId": "sampleapp@0.0.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "sampleapp@0.0.0",
+        "info": Object {
+          "name": "sampleapp",
+          "version": "0.0.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "meta": Object {
+    "projectName": "renamed-package",
+  },
+  "packageManager": "hex",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella, allProjects = true, renamed-package: plugin 1`] = `
+Object {
+  "name": "snyk-hex-plugin",
+  "targetFile": "mix.exs",
+}
+`;
+
 exports[`inspect umbrella, allProjects = true: length 1`] = `1`;
 
 exports[`inspect umbrella, allProjects = true: mix.exs 1`] = `
@@ -504,6 +1020,538 @@ Object {
 `;
 
 exports[`inspect umbrella, allProjects = true: plugin 1`] = `
+Object {
+  "name": "snyk-hex-plugin",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella, renamed-package: apps/api/mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "core@in_umbrella",
+            },
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "phoenix@1.3.4",
+            },
+          ],
+          "nodeId": "root-node",
+          "pkgId": "sampleapp/apps/api@0.1.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "missingLockFileEntry": "true",
+              "scope": "prod",
+            },
+          },
+          "nodeId": "core@in_umbrella",
+          "pkgId": "core@in_umbrella",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowlib@1.0.2",
+            },
+            Object {
+              "nodeId": "ranch@1.3.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "cowboy@1.1.2",
+          "pkgId": "cowboy@1.1.2",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "phoenix_pubsub@1.1.0",
+            },
+            Object {
+              "nodeId": "plug@1.6.3",
+            },
+            Object {
+              "nodeId": "poison@3.1.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix@1.3.4",
+          "pkgId": "phoenix@1.3.4",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "cowlib@1.0.2",
+          "pkgId": "cowlib@1.0.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "ranch@1.3.2",
+          "pkgId": "ranch@1.3.2",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "phoenix_pubsub@1.1.0",
+          "pkgId": "phoenix_pubsub@1.1.0",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "cowboy@1.1.2",
+            },
+            Object {
+              "nodeId": "mime@1.3.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "plug@1.6.3",
+          "pkgId": "plug@1.6.3",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "poison@3.1.0",
+          "pkgId": "poison@3.1.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "mime@1.3.0",
+          "pkgId": "mime@1.3.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "sampleapp/apps/api@0.1.0",
+        "info": Object {
+          "name": "sampleapp/apps/api",
+          "version": "0.1.0",
+        },
+      },
+      Object {
+        "id": "core@in_umbrella",
+        "info": Object {
+          "name": "core",
+          "version": "in_umbrella",
+        },
+      },
+      Object {
+        "id": "cowboy@1.1.2",
+        "info": Object {
+          "name": "cowboy",
+          "version": "1.1.2",
+        },
+      },
+      Object {
+        "id": "phoenix@1.3.4",
+        "info": Object {
+          "name": "phoenix",
+          "version": "1.3.4",
+        },
+      },
+      Object {
+        "id": "cowlib@1.0.2",
+        "info": Object {
+          "name": "cowlib",
+          "version": "1.0.2",
+        },
+      },
+      Object {
+        "id": "ranch@1.3.2",
+        "info": Object {
+          "name": "ranch",
+          "version": "1.3.2",
+        },
+      },
+      Object {
+        "id": "phoenix_pubsub@1.1.0",
+        "info": Object {
+          "name": "phoenix_pubsub",
+          "version": "1.1.0",
+        },
+      },
+      Object {
+        "id": "plug@1.6.3",
+        "info": Object {
+          "name": "plug",
+          "version": "1.6.3",
+        },
+      },
+      Object {
+        "id": "poison@3.1.0",
+        "info": Object {
+          "name": "poison",
+          "version": "3.1.0",
+        },
+      },
+      Object {
+        "id": "mime@1.3.0",
+        "info": Object {
+          "name": "mime",
+          "version": "1.3.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "meta": Object {
+    "projectName": "renamed-package/api",
+  },
+  "packageManager": "hex",
+  "targetFile": "apps/api/mix.exs",
+}
+`;
+
+exports[`inspect umbrella, renamed-package: apps/core/mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "bcrypt_elixir@0.12.1",
+            },
+            Object {
+              "nodeId": "comeonin@4.1.1",
+            },
+            Object {
+              "nodeId": "ecto@2.2.10",
+            },
+            Object {
+              "nodeId": "poison@3.1.0",
+            },
+            Object {
+              "nodeId": "postgrex@0.13.5",
+            },
+          ],
+          "nodeId": "root-node",
+          "pkgId": "sampleapp/apps/core@0.1.0",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "elixir_make@0.4.2",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "bcrypt_elixir@0.12.1",
+          "pkgId": "bcrypt_elixir@0.12.1",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "bcrypt_elixir@0.12.1",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "comeonin@4.1.1",
+          "pkgId": "comeonin@4.1.1",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "db_connection@1.1.3",
+            },
+            Object {
+              "nodeId": "decimal@1.5.0",
+            },
+            Object {
+              "nodeId": "poison@3.1.0",
+            },
+            Object {
+              "nodeId": "poolboy@1.5.1",
+            },
+            Object {
+              "nodeId": "postgrex@0.13.5",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "ecto@2.2.10",
+          "pkgId": "ecto@2.2.10",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "poison@3.1.0",
+          "pkgId": "poison@3.1.0",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "connection@1.0.4",
+            },
+            Object {
+              "nodeId": "db_connection@1.1.3",
+            },
+            Object {
+              "nodeId": "decimal@1.5.0",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "postgrex@0.13.5",
+          "pkgId": "postgrex@0.13.5",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "elixir_make@0.4.2",
+          "pkgId": "elixir_make@0.4.2",
+        },
+        Object {
+          "deps": Array [
+            Object {
+              "nodeId": "connection@1.0.4",
+            },
+            Object {
+              "nodeId": "poolboy@1.5.1",
+            },
+          ],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "db_connection@1.1.3",
+          "pkgId": "db_connection@1.1.3",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "decimal@1.5.0",
+          "pkgId": "decimal@1.5.0",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "poolboy@1.5.1",
+          "pkgId": "poolboy@1.5.1",
+        },
+        Object {
+          "deps": Array [],
+          "info": Object {
+            "labels": Object {
+              "scope": "prod",
+            },
+          },
+          "nodeId": "connection@1.0.4",
+          "pkgId": "connection@1.0.4",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "sampleapp/apps/core@0.1.0",
+        "info": Object {
+          "name": "sampleapp/apps/core",
+          "version": "0.1.0",
+        },
+      },
+      Object {
+        "id": "bcrypt_elixir@0.12.1",
+        "info": Object {
+          "name": "bcrypt_elixir",
+          "version": "0.12.1",
+        },
+      },
+      Object {
+        "id": "comeonin@4.1.1",
+        "info": Object {
+          "name": "comeonin",
+          "version": "4.1.1",
+        },
+      },
+      Object {
+        "id": "ecto@2.2.10",
+        "info": Object {
+          "name": "ecto",
+          "version": "2.2.10",
+        },
+      },
+      Object {
+        "id": "poison@3.1.0",
+        "info": Object {
+          "name": "poison",
+          "version": "3.1.0",
+        },
+      },
+      Object {
+        "id": "postgrex@0.13.5",
+        "info": Object {
+          "name": "postgrex",
+          "version": "0.13.5",
+        },
+      },
+      Object {
+        "id": "elixir_make@0.4.2",
+        "info": Object {
+          "name": "elixir_make",
+          "version": "0.4.2",
+        },
+      },
+      Object {
+        "id": "db_connection@1.1.3",
+        "info": Object {
+          "name": "db_connection",
+          "version": "1.1.3",
+        },
+      },
+      Object {
+        "id": "decimal@1.5.0",
+        "info": Object {
+          "name": "decimal",
+          "version": "1.5.0",
+        },
+      },
+      Object {
+        "id": "poolboy@1.5.1",
+        "info": Object {
+          "name": "poolboy",
+          "version": "1.5.1",
+        },
+      },
+      Object {
+        "id": "connection@1.0.4",
+        "info": Object {
+          "name": "connection",
+          "version": "1.0.4",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "meta": Object {
+    "projectName": "renamed-package/core",
+  },
+  "packageManager": "hex",
+  "targetFile": "apps/core/mix.exs",
+}
+`;
+
+exports[`inspect umbrella, renamed-package: length 1`] = `3`;
+
+exports[`inspect umbrella, renamed-package: mix.exs 1`] = `
+Object {
+  "depGraph": Object {
+    "graph": Object {
+      "nodes": Array [
+        Object {
+          "deps": Array [],
+          "nodeId": "root-node",
+          "pkgId": "sampleapp@0.0.0",
+        },
+      ],
+      "rootNodeId": "root-node",
+    },
+    "pkgManager": Object {
+      "name": "hex",
+    },
+    "pkgs": Array [
+      Object {
+        "id": "sampleapp@0.0.0",
+        "info": Object {
+          "name": "sampleapp",
+          "version": "0.0.0",
+        },
+      },
+    ],
+    "schemaVersion": "1.2.0",
+  },
+  "meta": Object {
+    "projectName": "renamed-package",
+  },
+  "packageManager": "hex",
+  "targetFile": "mix.exs",
+}
+`;
+
+exports[`inspect umbrella, renamed-package: plugin 1`] = `
 Object {
   "name": "snyk-hex-plugin",
   "targetFile": "mix.exs",
