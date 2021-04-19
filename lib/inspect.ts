@@ -6,6 +6,7 @@ interface Options {
   debug?: boolean;
   dev?: boolean;
   file?: string;
+  'project-name'?: string;
   allProjects?: boolean; // if true, will not resolve apps if tested manifest is an umbrella project
 }
 
@@ -28,18 +29,19 @@ export async function inspect(
   targetFile: string,
   options: Options = {},
 ): Promise<MultiProjectResult> {
-  const { debug, dev, allProjects } = options;
+  const { debug, dev, allProjects, 'project-name': projectName } = options;
 
   const [scanResult, pluginVersion] = await Promise.all([
-    scan({ debug, dev, allProjects, path: root, targetFile }),
+    scan({ debug, dev, allProjects, projectName, path: root, targetFile }),
     getPluginVersion(),
   ]);
 
   const scannedProjects = scanResult.scanResults.map(
-    ({ identity, facts: [{ data: depGraph }] }) => ({
+    ({ identity, facts: [{ data: depGraph }], name }) => ({
       packageManager: 'hex',
       targetFile: identity.targetFile!,
       depGraph,
+      ...(name ? { meta: { projectName: name } } : {}),
     }),
   );
 

@@ -4,25 +4,41 @@ import { cleanTargetFile } from './utils';
 import { ScannedProject } from '../lib/inspect';
 
 describe('inspect', () => {
-  verifyFixture('simple');
-  verifyFixture('umbrella');
-  verifyFixture('umbrella/apps/api');
-  verifyFixture('umbrella', 'mix.exs', true);
-  verifyFixture('umbrella', 'apps/api/mix.exs', true);
+  verifyFixture('simple', { allProjects: false });
+  verifyFixture('simple', {
+    allProjects: false,
+    projectName: 'renamed-package',
+  });
+  verifyFixture('umbrella', { allProjects: false });
+  verifyFixture('umbrella/apps/api', { allProjects: false });
+  verifyFixture('umbrella', { allProjects: true }, 'mix.exs');
+  verifyFixture('umbrella', { allProjects: true }, 'apps/api/mix.exs');
+  verifyFixture('umbrella', {
+    allProjects: false,
+    projectName: 'renamed-package',
+  });
+  verifyFixture('umbrella', {
+    allProjects: true,
+    projectName: 'renamed-package',
+  });
 });
 
 function verifyFixture(
   fixtureName: string,
+  options: { allProjects: boolean; projectName?: string },
   targetFile = 'mix.exs',
-  allProjects = false,
 ) {
   it(`${fixtureName}${targetFile === 'mix.exs' ? '' : '/' + targetFile}${
-    allProjects ? ', allProjects = true' : ''
-  }`, async () => {
+    options.allProjects ? ', allProjects = true' : ''
+  }${options.projectName ? `, ${options.projectName}` : ''}`, async () => {
     const result = await inspect(
       path.resolve(__dirname, `fixtures/${fixtureName}`),
       targetFile,
-      { dev: true, allProjects },
+      {
+        dev: true,
+        allProjects: options.allProjects,
+        'project-name': options.projectName,
+      },
     );
 
     const {

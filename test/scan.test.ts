@@ -8,6 +8,9 @@ describe('scan', () => {
     verifyFixture('simple');
     verifyFixture('umbrella');
     verifyFixture('regex');
+    verifyFixture('simple', { projectName: 'renamed-project' });
+    verifyFixture('umbrella', { projectName: 'renamed-project' });
+    verifyFixture('regex', { projectName: 'renamed-project' });
   });
 
   it('broken manifest file throws', async () => {
@@ -31,9 +34,14 @@ describe('scan', () => {
   });
 });
 
-function verifyFixture(fixtureName: string) {
-  it(fixtureName, async () => {
-    const result = await runFixture(fixtureName);
+function verifyFixture(
+  fixtureName: string,
+  options?: { projectName?: string },
+) {
+  it(`${fixtureName}${
+    options?.projectName ? ' (with projectName)' : ''
+  }`, async () => {
+    const result = await runFixture(fixtureName, options);
 
     expect(result.scanResults?.length).toMatchSnapshot('length');
 
