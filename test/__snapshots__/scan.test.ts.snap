@@ -1787,7 +1787,7 @@ Object {
     "targetFile": "apps/api/mix.exs",
     "type": "hex",
   },
-  "name": "renamed-project/api",
+  "name": "renamed-project/apps/api",
 }
 `;
 
@@ -2054,7 +2054,7 @@ Object {
     "targetFile": "apps/core/mix.exs",
     "type": "hex",
   },
-  "name": "renamed-project/core",
+  "name": "renamed-project/apps/core",
 }
 `;
 

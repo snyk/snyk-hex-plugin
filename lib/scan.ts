@@ -129,6 +129,6 @@ function getRelativePathToManifest(
 function getProjectNamePath(options: Options, relativePathToManifest: string) {
   return [
     options.projectName,
-    ...relativePathToManifest.split('/').slice(1, -1),
+    ...relativePathToManifest.split('/').slice(0, -1),
   ].join('/');
 }
