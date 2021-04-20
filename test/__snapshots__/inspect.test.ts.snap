@@ -1245,7 +1245,7 @@ Object {
     "schemaVersion": "1.2.0",
   },
   "meta": Object {
-    "projectName": "renamed-package/api",
+    "projectName": "renamed-package/apps/api",
   },
   "packageManager": "hex",
   "targetFile": "apps/api/mix.exs",
@@ -1507,7 +1507,7 @@ Object {
     "schemaVersion": "1.2.0",
   },
   "meta": Object {
-    "projectName": "renamed-package/core",
+    "projectName": "renamed-package/apps/core",
   },
   "packageManager": "hex",
   "targetFile": "apps/core/mix.exs",
