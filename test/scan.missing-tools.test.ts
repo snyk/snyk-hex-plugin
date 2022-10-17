@@ -37,22 +37,24 @@ type ExecutionMockFunction = (
   args: string[],
 ) => Promise<string>;
 
-const getMockedExecutionFunction = (
-  mixOutcome: MockOutcome,
-  generalOutcome: MockOutcome,
-): ExecutionMockFunction => (command: string, args: string[]) => {
-  const getOutcomePromise = (outcome: MockOutcome) => {
-    return outcome === 'reject'
-      ? Promise.reject('Error')
-      : Promise.resolve('Success');
+const getMockedExecutionFunction =
+  (
+    mixOutcome: MockOutcome,
+    generalOutcome: MockOutcome,
+  ): ExecutionMockFunction =>
+  (command: string, args: string[]) => {
+    const getOutcomePromise = (outcome: MockOutcome) => {
+      return outcome === 'reject'
+        ? Promise.reject('Error')
+        : Promise.resolve('Success');
+    };
+
+    if (command === 'mix' && args[0] === '-v') {
+      return getOutcomePromise(mixOutcome);
+    }
+
+    return getOutcomePromise(generalOutcome);
   };
-
-  if (command === 'mix' && args[0] === '-v') {
-    return getOutcomePromise(mixOutcome);
-  }
-
-  return getOutcomePromise(generalOutcome);
-};
 
 function runFixture(fixtureName: string, options?: any) {
   return scan({
