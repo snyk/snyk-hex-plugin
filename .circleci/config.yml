@@ -76,8 +76,14 @@ commands:
         default: ""
     steps:
       - run:
+          name: Installing Scoop
+          command: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+      - run:
+          name: Installing Erlang
+          command: scoop install erlang@24.3.4.4
+      - run:
           name: Installing Elixir
-          command: choco install elixir --version << parameters.elixir_version >> -y
+          command: scoop install elixir@<< parameters.elixir_version >>
   setup_snyk_user:
     steps:
       - run:
@@ -175,7 +181,7 @@ workflows:
           matrix:
             parameters:
               node_version: [ "10.24", "12.21" ]
-              elixir_version: [ "1.13.3"]
+              elixir_version: [ "1.11", "1.10", "1.9"]
 
       # Release
       - release:
