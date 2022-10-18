@@ -18,10 +18,10 @@ export function execute(
     let stderr = '';
 
     const proc = childProcess.spawn(command, args, spawnOptions);
-    proc.stdout.on('data', (data: Buffer) => {
+    proc.stdout?.on('data', (data: Buffer) => {
       stdout = stdout + data;
     });
-    proc.stderr.on('data', (data: Buffer) => {
+    proc.stderr?.on('data', (data: Buffer) => {
       stderr = stderr + data;
     });
 
