@@ -1,9 +1,7 @@
-import { mocked } from 'ts-jest/utils';
-
-import { scan } from '../lib';
 import * as path from 'upath';
+import { scan } from '../lib';
+import * as subProcess from '../lib/sub-process';
 
-import { execute } from '../lib/sub-process';
 jest.mock('../lib/sub-process', () => {
   return { execute: jest.fn() };
 });
@@ -14,17 +12,17 @@ afterEach(() => {
 
 describe('scan', () => {
   it('Invalid mix/elixir', () => {
-    mocked(execute).mockImplementation(
-      getMockedExecutionFunction('reject', 'reject'),
-    );
+    jest
+      .spyOn(subProcess, 'execute')
+      .mockImplementation(getMockedExecutionFunction('reject', 'reject'));
     expect(() => runFixture('simple')).rejects.toThrow(
       'mix is not installed. please make sure Elixir is installed and try again.',
     );
   });
   it('Valid mix reaches the getMixResult function', async () => {
-    mocked(execute).mockImplementation(
-      getMockedExecutionFunction('resolve', 'reject'),
-    );
+    jest
+      .spyOn(subProcess, 'execute')
+      .mockImplementation(getMockedExecutionFunction('resolve', 'reject'));
     expect(() => runFixture('bad-manifest')).rejects.toThrow(
       /Error parsing manifest file/,
     );

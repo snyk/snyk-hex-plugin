@@ -99,7 +99,7 @@ jobs:
   lint:
     <<: *defaults
     docker:
-      - image: circleci/node:<< parameters.node_version >>
+      - image: cimg/node:<< parameters.node_version >>
     steps:
       - checkout
       - setup_snyk_user
@@ -131,7 +131,7 @@ jobs:
   test-unix:
     <<: *defaults
     docker:
-      - image: circleci/elixir:<< parameters.elixir_version >>
+      - image: cimg/elixir:<< parameters.elixir_version >>
     steps:
       - checkout
       - setup_snyk_user
@@ -163,7 +163,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "10.24"
+          node_version: "16.13.2"
       - test-unix:
           name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -171,8 +171,8 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["10.24", "12.21"]
-              elixir_version: [ "1.11", "1.10", "1.9"]
+              node_version: ["12.22.11", "14.20.0", "16.13.2"]
+              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -180,14 +180,14 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: [ "10.24", "12.21" ]
-              elixir_version: [ "1.11", "1.10", "1.9"]
+              node_version: ["12.22.11", "14.20.0", "16.13.2"]
+              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
 
       # Release
       - release:
           name: Release
           context: nodejs-app-release
-          node_version: "10.24"
+          node_version: "16.13.2"
           requires:
             - test-unix
             - test-windows
