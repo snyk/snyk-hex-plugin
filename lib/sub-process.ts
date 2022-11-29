@@ -4,12 +4,15 @@ import { debug } from './debug';
 export function execute(
   command: string,
   args: string[],
-  options?: { cwd?: string },
+  options?: { cwd?: string; shell?: boolean },
 ): Promise<string> {
   debug(`running "${command} ${args.join(' ')}"`);
 
-  const spawnOptions: childProcess.SpawnOptions = { shell: true };
-  if (options && options.cwd) {
+  const spawnOptions: childProcess.SpawnOptions = {};
+  if (options?.shell) {
+    spawnOptions.shell = true;
+  }
+  if (options?.cwd) {
     spawnOptions.cwd = options.cwd;
   }
 

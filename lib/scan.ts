@@ -5,6 +5,7 @@ import * as subProcess from './sub-process';
 import { PluginResponse } from './types';
 import { debug, init } from './debug';
 import { copyElixirCodeToTempDir } from './copy-elixir-code-to-temp-dir';
+import { getMixCmd } from './mixCmd';
 
 interface Options {
   debug?: boolean; // true will print out debug messages when using the "--debug" flag
@@ -13,6 +14,7 @@ interface Options {
   projectName?: string; // will be the value of the '--project-name' flag if used.
   path: string;
   targetFile?: string;
+  shell?: boolean; // if true, node will spawn child process with { shell: true }
 }
 
 const MANIFEST_FILE_NAME = 'mix.exs';
@@ -28,9 +30,9 @@ export async function scan(options: Options): Promise<PluginResponse> {
     throw new Error("target file must be 'mix.exs'.");
   }
 
-  await verifyMixInstalled();
+  await verifyMixInstalled(options.shell);
 
-  const mixResult = await getMixResult(targetFile.dir);
+  const mixResult = await getMixResult(targetFile.dir, options.shell);
 
   const depGraphMap = buildDepGraphs(
     mixResult,
@@ -68,9 +70,11 @@ export async function scan(options: Options): Promise<PluginResponse> {
   return { scanResults };
 }
 
-async function verifyMixInstalled() {
+async function verifyMixInstalled(shell = false) {
   try {
-    const mixVersion = await subProcess.execute('mix', ['-v']);
+    const mixVersion = await subProcess.execute(getMixCmd(shell), ['-v'], {
+      shell,
+    });
     debug(`mix version: `, mixVersion);
   } catch {
     throw new Error(
@@ -79,13 +83,23 @@ async function verifyMixInstalled() {
   }
 }
 
-async function getMixResult(root: string): Promise<MixJsonResult> {
+async function getMixResult(
+  root: string,
+  shell = false,
+): Promise<MixJsonResult> {
   const elixirTmpDir = copyElixirCodeToTempDir();
   const cwd = elixirTmpDir.name;
 
   let filePath: string | undefined;
   try {
-    const output = await subProcess.execute('mix', ['read.mix', root], { cwd });
+    const output = await subProcess.execute(
+      getMixCmd(shell),
+      ['read.mix', root],
+      {
+        cwd,
+        shell,
+      },
+    );
     debug(`read.mix output: ${output}`);
 
     const fileName = output.trim().split('\n').pop();

@@ -1,6 +1,7 @@
 import * as path from 'upath';
 import { scan } from '../lib';
 import * as subProcess from '../lib/sub-process';
+import { getMixCmd } from '../lib/mixCmd';
 
 jest.mock('../lib/sub-process', () => {
   return { execute: jest.fn() };
@@ -47,7 +48,7 @@ const getMockedExecutionFunction =
         : Promise.resolve('Success');
     };
 
-    if (command === 'mix' && args[0] === '-v') {
+    if (command === getMixCmd() && args[0] === '-v') {
       return getOutcomePromise(mixOutcome);
     }
 
