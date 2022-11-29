@@ -33,6 +33,7 @@
     "@snyk/dep-graph": "^1.28.0",
     "@snyk/mix-parser": "^1.1.1",
     "debug": "^4.3.1",
+    "shescape": "1.6.1",
     "tmp": "^0.0.33",
     "tslib": "^2.0.0",
     "upath": "2.0.1"
