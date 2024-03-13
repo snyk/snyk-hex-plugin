@@ -169,7 +169,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "16.13.2"
+          node_version: "18.19.1"
       - test-unix:
           name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -177,7 +177,7 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["12.22.11", "14.20.0", "16.13.2"]
+              node_version: ["18.19.1"]
               elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
@@ -186,7 +186,7 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["12.22.11", "14.20.0", "16.13.2"]
+              node_version: ["18.19.1"]
               elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
 
       # Release
