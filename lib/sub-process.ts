@@ -1,6 +1,6 @@
 import * as childProcess from 'child_process';
 import { debug } from './debug';
-import { quoteAll } from 'shescape';
+import { quoteAll } from 'shescape/stateless';
 
 export function execute(
   command: string,
