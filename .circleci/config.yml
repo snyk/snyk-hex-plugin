@@ -207,7 +207,7 @@ workflows:
           matrix:
             parameters:
               node_version: ["18.19.1"]
-              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
+              elixir_version: [ "1.17-erlang-27.2.2", "1.18-erlang-27.2.2"]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -216,7 +216,7 @@ workflows:
           matrix:
             parameters:
               node_version: ["18.19.1"]
-              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
+              elixir_version: [ "1.17", "1.18"]
 
       # Release
       - release:
