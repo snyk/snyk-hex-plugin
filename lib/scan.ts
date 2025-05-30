@@ -72,7 +72,8 @@ async function verifyMixInstalled() {
   try {
     const mixVersion = await subProcess.execute('mix', ['-v']);
     debug(`mix version: `, mixVersion);
-  } catch {
+  } catch (err) {
+    debug(`mix -v failed:`, err);
     throw new Error(
       'mix is not installed. please make sure Elixir is installed and try again.',
     );

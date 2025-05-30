@@ -191,14 +191,14 @@ workflows:
                 - master
       - security-scans:
           name: Security Scans
-          node_version: "16.13.2"
+          node_version: "20.19.1"
           context:
             - open_source-managed
             - nodejs-install
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "16.13.2"
+          node_version: "20.19.1"
       - test-unix:
           name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -206,8 +206,8 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["12.22.11", "14.20.0", "16.13.2"]
-              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
+              node_version: ["20.19.1"]
+              elixir_version: [ "1.17-erlang-27.2.2", "1.18-erlang-27.2.2"]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -215,8 +215,8 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: ["12.22.11", "14.20.0", "16.13.2"]
-              elixir_version: [ "1.14.1", "1.13.1", "1.12.1"]
+              node_version: ["20.19.1"]
+              elixir_version: [ "1.17", "1.18"]
 
       # Release
       - release:
