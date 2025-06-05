@@ -13,7 +13,7 @@ export function execute(
   if (options && options.cwd) {
     spawnOptions.cwd = options.cwd;
   }
-  args = quoteAll(args, { ...spawnOptions, flagProtection: false });
+  args = quoteAll(args, { flagProtection: false });
 
   return new Promise((resolve, reject) => {
     let stdout = '';
