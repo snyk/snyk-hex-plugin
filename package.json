@@ -33,7 +33,7 @@
     "@snyk/dep-graph": "^1.28.0",
     "@snyk/mix-parser": "^1.1.1",
     "debug": "^4.3.1",
-    "shescape": "1.6.1",
+    "shescape": "2.1.4",
     "tmp": "^0.0.33",
     "tslib": "^2.0.0",
     "upath": "2.0.1"
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/jest": "^28.1.3",
-    "@types/node": "^16.11.66",
+    "@types/node": "^20.17.55",
     "@types/tmp": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
@@ -52,6 +52,6 @@
     "ts-jest": "^28.0.8",
     "ts-node": "^8.10.1",
     "tsc-watch": "^4.2.7",
-    "typescript": "^4.8.4"
+    "typescript": "^5.8.3"
   }
 }
