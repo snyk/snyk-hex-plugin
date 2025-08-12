@@ -1,6 +1,7 @@
 import * as childProcess from 'child_process';
 import { debug } from './debug';
-import { quoteAll } from 'shescape/stateless';
+import { escapeAll, quoteAll } from 'shescape/stateless';
+import * as os from 'node:os';
 
 export function execute(
   command: string,
@@ -9,11 +10,26 @@ export function execute(
 ): Promise<string> {
   debug(`running "${command} ${args.join(' ')}"`);
 
-  const spawnOptions: childProcess.SpawnOptions = { shell: true };
+  const spawnOptions: childProcess.SpawnOptions = { shell: false };
   if (options && options.cwd) {
     spawnOptions.cwd = options.cwd;
   }
-  args = quoteAll(args, { flagProtection: false });
+
+  if (args) {
+    // Best practices, also security-wise, is to not invoke processes in a shell, but as a stand-alone command.
+    // However, on Windows, we need to invoke the command in a shell, due to internal NodeJS problems with this approach
+    // see: https://nodejs.org/docs/latest-v24.x/api/child_process.html#spawning-bat-and-cmd-files-on-windows
+    const isWinLocal = /^win/.test(os.platform());
+    if (isWinLocal) {
+      spawnOptions.shell = true;
+      // Further, we distinguish between quoting and escaping arguments since quoteAll does not support quoting without
+      // supplying a shell, but escapeAll does.
+      // See this (very long) discussion for more details: https://github.com/ericcornelissen/shescape/issues/2009
+      args = quoteAll(args, { ...spawnOptions, flagProtection: false });
+    } else {
+      args = escapeAll(args, { ...spawnOptions, flagProtection: false });
+    }
+  }
 
   return new Promise((resolve, reject) => {
     let stdout = '';
@@ -25,6 +41,12 @@ export function execute(
     });
     proc.stderr?.on('data', (data: Buffer) => {
       stderr = stderr + data;
+    });
+
+    // Handle spawn errors (e.g., ENOENT when command doesn't exist)
+    proc.on('error', (error) => {
+      stderr = error.message;
+      reject({ stdout, stderr });
     });
 
     proc.on('close', (code) => {
