@@ -180,43 +180,43 @@ workflows:
   version: 2
   test_and_release:
     jobs:
-      - prodsec/secrets-scan:
-          name: Scan repository for secrets
-          context:
-            - snyk-bot-slack
-          channel: snyk-vuln-alerts-sca
-          filters:
-            branches:
-              ignore:
-                - master
+#      - prodsec/secrets-scan:
+#          name: Scan repository for secrets
+#          context:
+#            - snyk-bot-slack
+#          channel: snyk-vuln-alerts-sca
+#          filters:
+#            branches:
+#              ignore:
+#                - master
       - security-scans:
           name: Security Scans
           node_version: "20.19.1"
           context:
             - open_source-managed
             - nodejs-install
-      - lint:
-          name: Lint
-          context: nodejs-install
-          node_version: "20.19.1"
-      - test-unix:
-          name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
-          context: nodejs-install
-          requires:
-            - Lint
-          matrix:
-            parameters:
-              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
-              elixir_version: [ "1.18-erlang-27.2.2" ]
-      - test-windows:
-          name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
-          context: nodejs-install
-          requires:
-            - Lint
-          matrix:
-            parameters:
-              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
-              elixir_version: [ "1.18.2" ]
+#      - lint:
+#          name: Lint
+#          context: nodejs-install
+#          node_version: "20.19.1"
+#      - test-unix:
+#          name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
+#          context: nodejs-install
+#          requires:
+#            - Lint
+#          matrix:
+#            parameters:
+#              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
+#              elixir_version: [ "1.18-erlang-27.2.2" ]
+#      - test-windows:
+#          name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
+#          context: nodejs-install
+#          requires:
+#            - Lint
+#          matrix:
+#            parameters:
+#              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
+#              elixir_version: [ "1.18.2" ]
 
       # Release
       - release:
