@@ -1,11 +1,98 @@
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: snyk-hex-plugin
+  name: suggest-sticky
+  description: This service performs analysis on user code (discovers SAST issues and computes reachability for open source). Sticky is meant to provide incremental analysis on code that changes such as one from IDEs.
   annotations:
-    github.com/project-slug: snyk/snyk-hex-plugin
-    github.com/team-slug: snyk/os-managed
+    github.com/project-slug: snyk/deepcode
+    github.com/team-slug: snyk/program-analysis
+    circleci.com/project-slug: github/snyk/deepcode
+    backstage.io/techdocs-ref: dir:.
+    # Is this service exposed on the public internet and accept user input? (yes, no)
+    snyk.io/accepts-user-input: no
+    # The JIRA project prefix where the team want issues created for the that service
+    snyk.io/jira-prefix: SOL
+    # 1 - An asset which contains bulk customer information.
+    # 2 - An asset which if compromised would cause an availability issue OR contains transient customer information.
+    # 3 - An asset which contains proprietary (not customer) information.
+    # 4 - An asset which contains neither customer nor proprietary information.
+    snyk.io/criticality: "2"
+  labels:
+    snyk.io/businessCriticality: high
+    snyk.io/visibility: private
+    snyk.io/metadata-version: "2022-23-01"
+  links:
+    - url: https://app.datadoghq.com/dashboard/lists/manual/365789
+      title: Datadog dashboards
+    - url: https://app.datadoghq.com/logs?query=service%3Asuggest-sticky&additional_filters=%5B%7B%7D%5D&cols=%40kubernetes.pod_name&index=%2A&messageDisplay=inline&stream_sort=time%2Cdesc&viz=stream&from_ts=1678264154028&to_ts=1678265054028&live=true
+      title: Production logs
+    - url: https://app.datadoghq.com/dashboard/qp3-usx-vyh/suggest-v6-slos?from_ts=1680660757644&to_ts=1680675157644&live=true
+      title: SuggestV6 datadog SLO board
+    - url: https://snyk.slack.com/archives/C02F56VV7BM
+      title: New Code Services Team's Ask Channel
+    - url: https://docs.google.com/document/d/1nPTF7dJGtrsRGn_cT-5OpAtkFlXk7xiMC7lt9UnuaI8/edit#
+      title: Rollout plan for new services
 spec:
-  type: snyk-cli-plugin
+  type: snyk-deployed-fedramp
   lifecycle: "-"
-  owner: os-managed
+  owner: program-analysis
+  system: snyk-code
+  providesApis:
+    - suggest-v6_GRPC_api
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: suggest-infra
+  description: This service performs analysis on user code (discovers SAST issues and computes reachability for open source). This is a non-sticky load-balanced instance, i.e. one that is expected to run one-off analyses and does not need caching of results.
+  annotations:
+    github.com/project-slug: snyk/deepcode
+    github.com/team-slug: snyk/t42
+    circleci.com/project-slug: github/snyk/deepcode
+    backstage.io/techdocs-ref: dir:.
+    # Is this service exposed on the public internet and accept user input? (yes, no)
+    snyk.io/accepts-user-input: no
+    # The JIRA project prefix where the team want issues created for the that service
+    snyk.io/jira-prefix: SOL
+    # 1 - An asset which contains bulk customer information.
+    # 2 - An asset which if compromised would cause an availability issue OR contains transient customer information.
+    # 3 - An asset which contains proprietary (not customer) information.
+    # 4 - An asset which contains neither customer nor proprietary information.
+    snyk.io/criticality: "2"
+  labels:
+    snyk.io/businessCriticality: high
+    snyk.io/visibility: private
+    snyk.io/metadata-version: "2022-23-01"
+  links:
+    - url: https://app.datadoghq.com/dashboard/lists/manual/365789
+      title: Datadog dashboards
+    - url: https://app.datadoghq.com/logs?query=service%3Asuggest-infra&additional_filters=%5B%7B%7D%5D&cols=%40kubernetes.pod_name&index=%2A&messageDisplay=inline&stream_sort=time%2Cdesc&viz=stream&from_ts=1678264133131&to_ts=1678265033131&live=true
+      title: Production logs
+    - url: https://app.datadoghq.com/dashboard/qp3-usx-vyh/suggest-v6-slos?from_ts=1680660757644&to_ts=1680675157644&live=true
+      title: SuggestV6 datadog SLO metrics board
+    - url: https://app.datadoghq.com/slo/manage?query=team%3At42%20AND%20service%3Asuggest-infra
+      title: SLO Dashboard
+    - url: https://snyk.slack.com/archives/C02F56VV7BM
+      title: New Code Services Team's Ask Channel
+    - url: https://docs.google.com/document/d/1nPTF7dJGtrsRGn_cT-5OpAtkFlXk7xiMC7lt9UnuaI8/edit#
+      title: Rollout plan for new services
+spec:
+  type: snyk-deployed-fedramp
+  lifecycle: "-"
+  owner: group-ai
+  system: snyk-code
+  providesApis:
+    - suggest-v6_GRPC_api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: suggest-v6_GRPC_api
+spec:
+  type: snyk-deployed-fedramp
+  lifecycle: "-"
+  owner: group-ai
+  system: snyk-code
+  definition:
+    $text: serving/suggest_v6/protos/suggestv6_api.proto
