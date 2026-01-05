@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  prodsec: snyk/prodsec-orb@dev:e8bef9dc1d2451940bad2340f02fb12c065ae63e
+  prodsec: snyk/prodsec-orb@1
 
 defaults: &defaults
   parameters:
