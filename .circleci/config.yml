@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   win: circleci/windows@5.0
-  prodsec: snyk/prodsec-orb@dev:7b5e700832e993186aa76c2b0c679e8482fa4990
+  prodsec: snyk/prodsec-orb@1.2.15
+#  prodsec: snyk/prodsec-orb@dev:c5c71e9b7bb799a364aaccc8ca1576cc51cf88f0
 
 defaults: &defaults
   parameters:
@@ -108,7 +109,7 @@ jobs:
           name: Install Elixir
           command: sudo apt update; sudo apt install erlang-dev elixir
       - prodsec/security_scans:
-          mode: upload
+          mode: gate-and-upload
           release-branch: master
           open-source-additional-arguments: --exclude=test
           iac-scan: disabled
