@@ -7,7 +7,7 @@ metadata:
     github.com/project-slug: snyk/snyk-hex-plugin
     github.com/team-slug: snyk/os-managed
 spec:
-  type: bar
+  type: snyk-cli-plugin
   lifecycle: "-"
   owner: os-managed
 ---
@@ -19,6 +19,6 @@ metadata:
     github.com/project-slug: snyk/snyk-hex-plugin
     github.com/team-slug: snyk/os-managed
 spec:
-  type: foo
+  type: snyk-cli-plugin
   lifecycle: "-"
   owner: os-managed
