@@ -1,3 +1,16 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: snyk-hex-plugin
+  annotations:
+    github.com/project-slug: snyk/snyk-hex-plugin
+    github.com/team-slug: snyk/os-managed
+spec:
+  type: bar
+  lifecycle: "-"
+  owner: os-managed
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
@@ -9,4 +22,3 @@ spec:
   type: foo
   lifecycle: "-"
   owner: os-managed
-
