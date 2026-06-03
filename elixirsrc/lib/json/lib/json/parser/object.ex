@@ -1,31 +1,31 @@
-defmodule JSON.Parser.Object do
+defmodule Snyk.JSON.Parser.Object do
   @moduledoc """
-  Implements a JSON Object Parser for Bitstring values
+  Implements a Snyk.JSON Object Parser for Bitstring values
   """
 
-  alias JSON.Parser, as: Parser
+  alias Snyk.JSON.Parser, as: Parser
 
   @doc """
-  parses a valid JSON object value, returns its elixir representation
+  parses a valid Snyk.JSON object value, returns its elixir representation
 
   ## Examples
 
-      iex> JSON.Parser.Object.parse ""
+      iex> Snyk.JSON.Parser.Object.parse ""
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.Object.parse "face0ff"
+      iex> Snyk.JSON.Parser.Object.parse "face0ff"
       {:error, {:unexpected_token, "face0ff"}}
 
-      iex> JSON.Parser.Object.parse "[] "
+      iex> Snyk.JSON.Parser.Object.parse "[] "
       {:error, {:unexpected_token, "[] "}}
 
-      iex> JSON.Parser.Object.parse "[]"
+      iex> Snyk.JSON.Parser.Object.parse "[]"
       {:error, {:unexpected_token, "[]"}}
 
-      iex> JSON.Parser.Object.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
+      iex> Snyk.JSON.Parser.Object.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
       {:error, {:unexpected_token, "[\\\"foo\\\", 1, 2, 1.5] lala"}}
 
-      iex> JSON.Parser.Object.parse "{\\\"result\\\": \\\"this will be a elixir result\\\"} lalal"
+      iex> Snyk.JSON.Parser.Object.parse "{\\\"result\\\": \\\"this will be a elixir result\\\"} lalal"
       {:ok, Enum.into([{"result", "this will be a elixir result"}], Map.new), " lalal"}
   """
   def parse(<<?{, rest::binary>>) do

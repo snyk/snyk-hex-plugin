@@ -1,20 +1,20 @@
-defimpl JSON.Encoder, for: Tuple do
+defimpl Snyk.JSON.Encoder, for: Tuple do
   @doc """
-  Encodes an Elixir tuple into a JSON array
+  Encodes an Elixir tuple into a Snyk.JSON array
   """
-  def encode(term), do: term |> Tuple.to_list() |> JSON.Encoder.Helpers.enum_encode()
+  def encode(term), do: term |> Tuple.to_list() |> Snyk.JSON.Encoder.Helpers.enum_encode()
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof(_), do: :array
 end
 
-defimpl JSON.Encoder, for: HashDict do
+defimpl Snyk.JSON.Encoder, for: HashDict do
   @doc """
-  Encodes an Elixir HashDict into a JSON object
+  Encodes an Elixir HashDict into a Snyk.JSON object
   """
-  def encode(dict), do: JSON.Encoder.Helpers.dict_encode(dict)
+  def encode(dict), do: Snyk.JSON.Encoder.Helpers.dict_encode(dict)
 
   @doc """
   Returns :object
@@ -22,22 +22,22 @@ defimpl JSON.Encoder, for: HashDict do
   def typeof(_), do: :object
 end
 
-defimpl JSON.Encoder, for: List do
+defimpl Snyk.JSON.Encoder, for: List do
   @doc """
-  Encodes an Elixir List into a JSON array
+  Encodes an Elixir List into a Snyk.JSON array
   """
   def encode([]), do: {:ok, "[]"}
 
   def encode(list) do
     if Keyword.keyword?(list) do
-      JSON.Encoder.Helpers.dict_encode(list)
+      Snyk.JSON.Encoder.Helpers.dict_encode(list)
     else
-      JSON.Encoder.Helpers.enum_encode(list)
+      Snyk.JSON.Encoder.Helpers.enum_encode(list)
     end
   end
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof([]), do: :array
 
@@ -50,42 +50,42 @@ defimpl JSON.Encoder, for: List do
   end
 end
 
-defimpl JSON.Encoder, for: [Integer, Float] do
+defimpl Snyk.JSON.Encoder, for: [Integer, Float] do
   @doc """
-  Converts Elixir Integer and Floats into JSON Numbers
+  Converts Elixir Integer and Floats into Snyk.JSON Numbers
   """
   # Elixir converts octal, etc into decimal when putting in strings
   def encode(number), do: {:ok, "#{number}"}
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof(_), do: :number
 end
 
-defimpl JSON.Encoder, for: Atom do
+defimpl Snyk.JSON.Encoder, for: Atom do
   @doc """
-  Converts Elixir Atoms into their JSON equivalents
+  Converts Elixir Atoms into their Snyk.JSON equivalents
   """
   def encode(nil), do: {:ok, "null"}
   def encode(false), do: {:ok, "false"}
   def encode(true), do: {:ok, "true"}
-  def encode(atom) when is_atom(atom), do: atom |> Atom.to_string() |> JSON.Encoder.encode()
+  def encode(atom) when is_atom(atom), do: atom |> Atom.to_string() |> Snyk.JSON.Encoder.encode()
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof(boolean) when is_boolean(boolean), do: :boolean
   def typeof(nil), do: :null
   def typeof(atom) when is_atom(atom), do: :string
 end
 
-defimpl JSON.Encoder, for: BitString do
+defimpl Snyk.JSON.Encoder, for: BitString do
   # 32 = ascii space, cleaner than using "? ", I think
   @acii_space 32
 
   @doc """
-  Converts Elixir String into JSON String
+  Converts Elixir String into Snyk.JSON String
   """
   def encode(bitstring), do: {:ok, <<?">> <> encode_binary_recursive(bitstring, []) <> <<?">>}
 
@@ -127,53 +127,53 @@ defimpl JSON.Encoder, for: BitString do
   defp zeropad_hexadecimal_unicode_control_character(iolist) when is_list(iolist), do: iolist
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof(_), do: :string
 end
 
-defimpl JSON.Encoder, for: Record do
+defimpl Snyk.JSON.Encoder, for: Record do
   @doc """
   Encodes elixir records into json objects
   """
-  def encode(record), do: record.to_keywords |> JSON.Encoder.Helpers.dict_encode()
+  def encode(record), do: record.to_keywords |> Snyk.JSON.Encoder.Helpers.dict_encode()
 
   @doc """
-  Encodes a record into a JSON object
+  Encodes a record into a Snyk.JSON object
   """
   def typeof(_), do: :object
 end
 
-defimpl JSON.Encoder, for: Map do
+defimpl Snyk.JSON.Encoder, for: Map do
   @doc """
   Encodes maps into object
   """
-  def encode(map), do: map |> JSON.Encoder.Helpers.dict_encode()
+  def encode(map), do: map |> Snyk.JSON.Encoder.Helpers.dict_encode()
 
   @doc """
-  Returns an atom that represents the JSON type for the term
+  Returns an atom that represents the Snyk.JSON type for the term
   """
   def typeof(_), do: :object
 end
 
-defimpl JSON.Encoder, for: Any do
+defimpl Snyk.JSON.Encoder, for: Any do
   @moduledoc """
   Falllback module for encoding any other values
   """
 
   @doc """
-  Encodes a map into a JSON object
+  Encodes a map into a Snyk.JSON object
   """
   def encode(%{} = struct) do
     struct
     |> Map.to_list()
-    |> JSON.Encoder.Helpers.dict_encode()
+    |> Snyk.JSON.Encoder.Helpers.dict_encode()
   end
 
   def encode(x) do
     x
     |> Kernel.inspect()
-    |> JSON.Encoder.encode()
+    |> Snyk.JSON.Encoder.encode()
   end
 
   @doc """

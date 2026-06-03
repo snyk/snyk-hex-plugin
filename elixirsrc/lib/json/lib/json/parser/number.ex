@@ -1,38 +1,38 @@
-defmodule JSON.Parser.Number do
+defmodule Snyk.JSON.Parser.Number do
   @moduledoc """
-  Implements a JSON Numeber Parser for Bitstring values
+  Implements a Snyk.JSON Numeber Parser for Bitstring values
   """
 
   @doc """
-  parses a valid JSON numerical value, returns its elixir numerical representation
+  parses a valid Snyk.JSON numerical value, returns its elixir numerical representation
 
   ## Examples
 
-      iex> JSON.Parser.Number.parse ""
+      iex> Snyk.JSON.Parser.Number.parse ""
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.Number.parse "face0ff"
+      iex> Snyk.JSON.Parser.Number.parse "face0ff"
       {:error, {:unexpected_token, "face0ff"}}
 
-      iex> JSON.Parser.Number.parse "-hello"
+      iex> Snyk.JSON.Parser.Number.parse "-hello"
       {:error, {:unexpected_token, "hello"}}
 
-      iex> JSON.Parser.Number.parse "129245"
+      iex> Snyk.JSON.Parser.Number.parse "129245"
       {:ok, 129245, ""}
 
-      iex> JSON.Parser.Number.parse "7.something"
+      iex> Snyk.JSON.Parser.Number.parse "7.something"
       {:ok, 7, ".something"}
 
-      iex> JSON.Parser.Number.parse "7.4566something"
+      iex> Snyk.JSON.Parser.Number.parse "7.4566something"
       {:ok, 7.4566, "something"}
 
-      iex> JSON.Parser.Number.parse "-88.22suffix"
+      iex> Snyk.JSON.Parser.Number.parse "-88.22suffix"
       {:ok, -88.22, "suffix"}
 
-      iex> JSON.Parser.Number.parse "-12e4and then some"
+      iex> Snyk.JSON.Parser.Number.parse "-12e4and then some"
       {:ok, -1.2e+5, "and then some"}
 
-      iex> JSON.Parser.Number.parse "7842490016E-12-and more"
+      iex> Snyk.JSON.Parser.Number.parse "7842490016E-12-and more"
       {:ok, 7.842490016e-3, "-and more"}
   """
   def parse(<<?-, rest::binary>>) do

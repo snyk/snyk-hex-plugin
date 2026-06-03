@@ -1,6 +1,6 @@
-defprotocol JSON.Decoder do
+defprotocol Snyk.JSON.Decoder do
   @moduledoc """
-  Defines the protocol required for converting raw JSON into Elixir terms
+  Defines the protocol required for converting raw Snyk.JSON into Elixir terms
   """
 
   @doc """
@@ -10,29 +10,29 @@ defprotocol JSON.Decoder do
   def decode(bitstring_or_char_list)
 end
 
-defmodule JSON.Decoder.DefaultImplementations do
+defmodule Snyk.JSON.Decoder.DefaultImplementations do
   require Logger
-  import JSON.Logger
+  import Snyk.JSON.Logger
 
-  defimpl JSON.Decoder, for: BitString do
+  defimpl Snyk.JSON.Decoder, for: BitString do
     @moduledoc """
-    JSON Decoder implementation for BitString values
+    Snyk.JSON Decoder implementation for BitString values
     """
 
-    alias JSON.Parser, as: Parser
+    alias Snyk.JSON.Parser, as: Parser
 
     @doc """
     decodes json in BitString format
 
     ## Examples
 
-        iex> JSON.Decoder.decode ""
+        iex> Snyk.JSON.Decoder.decode ""
         {:error, :unexpected_end_of_buffer}
 
-        iex> JSON.Decoder.decode "face0ff"
+        iex> Snyk.JSON.Decoder.decode "face0ff"
         {:error, {:unexpected_token, "face0ff"}}
 
-        iex> JSON.Decoder.decode "-hello"
+        iex> Snyk.JSON.Decoder.decode "-hello"
         {:error, {:unexpected_token, "-hello"}}
 
     """
@@ -52,7 +52,7 @@ defmodule JSON.Decoder.DefaultImplementations do
 
         {:ok, value, rest} ->
           log(:debug, fn ->
-            "#{__MODULE__}.decode(#{inspect(bitstring)}) trimming remainder of JSON payload #{
+            "#{__MODULE__}.decode(#{inspect(bitstring)}) trimming remainder of Snyk.JSON payload #{
               inspect(rest)
             }..."
           end)
@@ -60,7 +60,7 @@ defmodule JSON.Decoder.DefaultImplementations do
           case rest |> String.trim() do
             <<>> ->
               log(:debug, fn ->
-                "#{__MODULE__}.decode(#{inspect(bitstring)}) successfully trimmed remainder JSON payload!"
+                "#{__MODULE__}.decode(#{inspect(bitstring)}) successfully trimmed remainder Snyk.JSON payload!"
               end)
 
               log(:debug, fn ->
@@ -80,25 +80,25 @@ defmodule JSON.Decoder.DefaultImplementations do
     end
   end
 
-  defimpl JSON.Decoder, for: List do
+  defimpl Snyk.JSON.Decoder, for: List do
     @moduledoc """
-    JSON Decoder implementation for Charlist values
+    Snyk.JSON Decoder implementation for Charlist values
     """
 
-    alias JSON.Decoder, as: Decoder
+    alias Snyk.JSON.Decoder, as: Decoder
 
     @doc """
     decodes json in BitString format
 
     ## Examples
 
-        iex> JSON.Decoder.decode ""
+        iex> Snyk.JSON.Decoder.decode ""
         {:error, :unexpected_end_of_buffer}
 
-        iex> JSON.Decoder.decode "face0ff"
+        iex> Snyk.JSON.Decoder.decode "face0ff"
         {:error, {:unexpected_token, "face0ff"}}
 
-        iex> JSON.Decoder.decode "-hello"
+        iex> Snyk.JSON.Decoder.decode "-hello"
         {:error, {:unexpected_token, "-hello"}}
 
     """
