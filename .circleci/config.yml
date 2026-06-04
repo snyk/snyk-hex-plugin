@@ -221,7 +221,7 @@ workflows:
       # Release
       - release:
           name: Release
-          context: nodejs-app-release
+          context: github-release
           node_version: "20.19.1"
           requires:
             - test-unix
