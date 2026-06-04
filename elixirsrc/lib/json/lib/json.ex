@@ -1,53 +1,53 @@
-defmodule JSON do
+defmodule Snyk.JSON do
   @moduledoc """
-  Provides a RFC 7159, ECMA 404, and JSONTestSuite compliant JSON Encoder / Decoder
+  Provides a RFC 7159, ECMA 404, and JSONTestSuite compliant Snyk.JSON Encoder / Decoder
   """
 
   require Logger
 
-  import JSON.Logger
+  import Snyk.JSON.Logger
 
-  alias JSON.Decoder
-  alias JSON.Encoder
+  alias Snyk.JSON.Decoder
+  alias Snyk.JSON.Encoder
 
   @vsn "1.0.2"
 
   @doc """
-  Returns a JSON string representation of the Elixir term
+  Returns a Snyk.JSON string representation of the Elixir term
 
   ## Examples
 
-      iex> JSON.encode([result: "this will be a JSON result"])
-      {:ok, "{\\\"result\\\":\\\"this will be a JSON result\\\"}"}
+      iex> Snyk.JSON.encode([result: "this will be a Snyk.JSON result"])
+      {:ok, "{\\\"result\\\":\\\"this will be a Snyk.JSON result\\\"}"}
 
   """
   @spec encode(term) :: {atom, bitstring}
   defdelegate encode(term), to: Encoder
 
   @doc """
-  Returns a JSON string representation of the Elixir term, raises errors when something bad happens
+  Returns a Snyk.JSON string representation of the Elixir term, raises errors when something bad happens
 
   ## Examples
 
-      iex> JSON.encode!([result: "this will be a JSON result"])
-      "{\\\"result\\\":\\\"this will be a JSON result\\\"}"
+      iex> Snyk.JSON.encode!([result: "this will be a Snyk.JSON result"])
+      "{\\\"result\\\":\\\"this will be a Snyk.JSON result\\\"}"
 
   """
   @spec encode!(term) :: bitstring
   def encode!(term) do
     case encode(term) do
       {:ok, value} -> value
-      {:error, error_info} -> raise JSON.Encoder.Error, error_info: error_info
-      _ -> raise JSON.Encoder.Error
+      {:error, error_info} -> raise Snyk.JSON.Encoder.Error, error_info: error_info
+      _ -> raise Snyk.JSON.Encoder.Error
     end
   end
 
   @doc """
-  Converts a valid JSON string into an Elixir term
+  Converts a valid Snyk.JSON string into an Elixir term
 
   ## Examples
 
-      iex> JSON.decode("{\\\"result\\\":\\\"this will be an Elixir result\\\"}")
+      iex> Snyk.JSON.decode("{\\\"result\\\":\\\"this will be an Elixir result\\\"}")
       {:ok, Enum.into([{"result", "this will be an Elixir result"}], Map.new)}
   """
   @spec decode(bitstring) :: {atom, term}
@@ -55,11 +55,11 @@ defmodule JSON do
   defdelegate decode(bitstring_or_char_list), to: Decoder
 
   @doc """
-  Converts a valid JSON string into an Elixir term, raises errors when something bad happens
+  Converts a valid Snyk.JSON string into an Elixir term, raises errors when something bad happens
 
   ## Examples
 
-      iex> JSON.decode!("{\\\"result\\\":\\\"this will be an Elixir result\\\"}")
+      iex> Snyk.JSON.decode!("{\\\"result\\\":\\\"this will be an Elixir result\\\"}")
       Enum.into([{"result", "this will be an Elixir result"}], Map.new)
   """
   @spec decode!(bitstring) :: term
@@ -80,14 +80,14 @@ defmodule JSON do
           "#{__MODULE__}.decode!(#{inspect(bitstring_or_char_list)}} unexpected token #{tok}"
         end)
 
-        raise JSON.Decoder.UnexpectedTokenError, token: tok
+        raise Snyk.JSON.Decoder.UnexpectedTokenError, token: tok
 
       {:error, :unexpected_end_of_buffer} ->
         log(:debug, fn ->
           "#{__MODULE__}.decode!(#{inspect(bitstring_or_char_list)}} end of buffer"
         end)
 
-        raise JSON.Decoder.UnexpectedEndOfBufferError
+        raise Snyk.JSON.Decoder.UnexpectedEndOfBufferError
 
       e ->
         log(:debug, fn ->

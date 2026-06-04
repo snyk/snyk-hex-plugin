@@ -5,7 +5,7 @@ defmodule Snyk.MixProject.Common do
       {:error, error_msg} -> error(error_msg)
     end
 
-    IO.binwrite(file, JSON.encode!(content))
+    IO.binwrite(file, Snyk.JSON.encode!(content))
   end
 
   def error(msg) do
@@ -14,7 +14,7 @@ defmodule Snyk.MixProject.Common do
   end
 end
 
-defimpl JSON.Encoder, for: Regex do
+defimpl Snyk.JSON.Encoder, for: Regex do
   def encode(_), do: {:ok, "\"regex\""}
 
   def typeof(_), do: :string

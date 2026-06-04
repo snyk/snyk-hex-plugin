@@ -1,71 +1,71 @@
-defmodule JSON.Parser do
+defmodule Snyk.JSON.Parser do
   @moduledoc """
-  Implements a JSON Parser for Bitstring values
+  Implements a Snyk.JSON Parser for Bitstring values
   """
 
-  alias JSON.Parser, as: Parser
+  alias Snyk.JSON.Parser, as: Parser
   alias Parser.Array, as: ArrayParser
   alias Parser.Number, as: NumberParser
   alias Parser.Object, as: ObjectParser
   alias Parser.String, as: StringParser
 
   require Logger
-  import JSON.Logger
+  import Snyk.JSON.Logger
 
   @doc """
-  parses a valid JSON value, returns its elixir representation
+  parses a valid Snyk.JSON value, returns its elixir representation
 
   ## Examples
 
-      iex> JSON.Parser.parse ""
+      iex> Snyk.JSON.Parser.parse ""
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.parse "face0ff"
+      iex> Snyk.JSON.Parser.parse "face0ff"
       {:error, {:unexpected_token, "face0ff"}}
 
-      iex> JSON.Parser.parse "-hello"
+      iex> Snyk.JSON.Parser.parse "-hello"
       {:error, {:unexpected_token, "-hello"}}
 
-      iex> JSON.Parser.parse "129245"
+      iex> Snyk.JSON.Parser.parse "129245"
       {:ok, 129245, ""}
 
-      iex> JSON.Parser.parse "7.something"
+      iex> Snyk.JSON.Parser.parse "7.something"
       {:ok, 7, ".something"}
 
-      iex> JSON.Parser.parse "-88.22suffix"
+      iex> Snyk.JSON.Parser.parse "-88.22suffix"
       {:ok, -88.22, "suffix"}
 
-      iex> JSON.Parser.parse "-12e4and then some"
+      iex> Snyk.JSON.Parser.parse "-12e4and then some"
       {:ok, -1.2e+5, "and then some"}
 
-      iex> JSON.Parser.parse "7842490016E-12-and more"
+      iex> Snyk.JSON.Parser.parse "7842490016E-12-and more"
       {:ok, 7.842490016e-3, "-and more"}
 
-      iex> JSON.Parser.parse "null"
+      iex> Snyk.JSON.Parser.parse "null"
       {:ok, nil, ""}
 
-      iex> JSON.Parser.parse "false"
+      iex> Snyk.JSON.Parser.parse "false"
       {:ok, false, ""}
 
-      iex> JSON.Parser.parse "true"
+      iex> Snyk.JSON.Parser.parse "true"
       {:ok, true, ""}
 
-      iex> JSON.Parser.parse "\\\"7.something\\\""
+      iex> Snyk.JSON.Parser.parse "\\\"7.something\\\""
       {:ok, "7.something", ""}
 
-      iex> JSON.Parser.parse "\\\"-88.22suffix\\\" foo bar"
+      iex> Snyk.JSON.Parser.parse "\\\"-88.22suffix\\\" foo bar"
       {:ok, "-88.22suffix", " foo bar"}
 
-      iex> JSON.Parser.parse "\\\"star -> \\\\u272d <- star\\\""
+      iex> Snyk.JSON.Parser.parse "\\\"star -> \\\\u272d <- star\\\""
       {:ok, "star -> ✭ <- star", ""}
 
-      iex> JSON.Parser.parse "[]"
+      iex> Snyk.JSON.Parser.parse "[]"
       {:ok, [], ""}
 
-      iex> JSON.Parser.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
+      iex> Snyk.JSON.Parser.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
       {:ok, ["foo", 1, 2, 1.5], " lala"}
 
-      iex> JSON.Parser.parse "{\\\"result\\\": \\\"this will be a elixir result\\\"} lalal"
+      iex> Snyk.JSON.Parser.parse "{\\\"result\\\": \\\"this will be a elixir result\\\"} lalal"
       {:ok, Enum.into([{"result", "this will be a elixir result"}], Map.new), " lalal"}
   """
 

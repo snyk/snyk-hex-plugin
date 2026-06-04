@@ -1,4 +1,4 @@
-defmodule JSON.Logger do
+defmodule Snyk.JSON.Logger do
   @moduledoc """
   Exposes separate log level configuration so developers can set logging
   verbosity for json library
@@ -41,7 +41,7 @@ defmodule JSON.Logger do
   """
   defmacro log(level, message) do
     quote bind_quoted: [level: level, message: message] do
-      if level in JSON.Logger.allowed_levels() do
+      if level in Snyk.JSON.Logger.allowed_levels() do
         Logger.log(level, message)
       else
         :ok

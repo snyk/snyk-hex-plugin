@@ -1,9 +1,9 @@
-defmodule JSON.Encoder.Helpers do
+defmodule Snyk.JSON.Encoder.Helpers do
   @moduledoc """
-  Helper functions for JSON.Encoder
+  Helper functions for Snyk.JSON.Encoder
   """
 
-  alias JSON.Encoder, as: Encoder
+  alias Snyk.JSON.Encoder, as: Encoder
 
   @doc """
   Given an enumerable encode the enumerable as an array.

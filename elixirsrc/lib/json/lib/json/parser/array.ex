@@ -1,34 +1,34 @@
-defmodule JSON.Parser.Array do
+defmodule Snyk.JSON.Parser.Array do
   @moduledoc """
-  Implements a JSON Array Parser for Bitstring values
+  Implements a Snyk.JSON Array Parser for Bitstring values
   """
 
-  alias JSON.Parser, as: Parser
+  alias Snyk.JSON.Parser, as: Parser
 
   require Logger
-  import JSON.Logger
+  import Snyk.JSON.Logger
 
   @doc """
-  parses a valid JSON array value, returns its elixir list representation
+  parses a valid Snyk.JSON array value, returns its elixir list representation
 
   ## Examples
 
-      iex> JSON.Parser.Array.parse ""
+      iex> Snyk.JSON.Parser.Array.parse ""
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.Array.parse "[1, 2 "
+      iex> Snyk.JSON.Parser.Array.parse "[1, 2 "
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.Array.parse "face0ff"
+      iex> Snyk.JSON.Parser.Array.parse "face0ff"
       {:error, {:unexpected_token, "face0ff"}}
 
-      iex> JSON.Parser.Array.parse "[] lala"
+      iex> Snyk.JSON.Parser.Array.parse "[] lala"
       {:ok, [], " lala"}
 
-      iex> JSON.Parser.Array.parse "[]"
+      iex> Snyk.JSON.Parser.Array.parse "[]"
       {:ok, [], ""}
 
-      iex> JSON.Parser.Array.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
+      iex> Snyk.JSON.Parser.Array.parse "[\\\"foo\\\", 1, 2, 1.5] lala"
       {:ok, ["foo", 1, 2, 1.5], " lala"}
   """
   def parse(<<?[, rest::binary>>) do

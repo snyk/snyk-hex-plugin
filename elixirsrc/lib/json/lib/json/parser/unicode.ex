@@ -1,6 +1,6 @@
-defmodule JSON.Parser.Unicode do
+defmodule Snyk.JSON.Parser.Unicode do
   @moduledoc """
-  Implements a JSON Unicode Parser for Bitstring values
+  Implements a Snyk.JSON Unicode Parser for Bitstring values
   """
 
   use Bitwise
@@ -11,13 +11,13 @@ defmodule JSON.Parser.Unicode do
 
   ## Examples
 
-      iex> JSON.Parser.parse ""
+      iex> Snyk.JSON.Parser.parse ""
       {:error, :unexpected_end_of_buffer}
 
-      iex> JSON.Parser.parse "face0ff"
+      iex> Snyk.JSON.Parser.parse "face0ff"
       {:error, {:unexpected_token, "face0ff"}}
 
-      iex> JSON.Parser.parse "-hello"
+      iex> Snyk.JSON.Parser.parse "-hello"
       {:error, {:unexpected_token, "-hello"}}
 
   """

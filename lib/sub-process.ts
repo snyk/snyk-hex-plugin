@@ -54,7 +54,13 @@ export function execute(
         debug(
           `Error running "${command} ${args.join(' ')}", exit code: ${code}`,
         );
-        return reject(stdout || stderr);
+        debug(`stdout:`, stdout);
+        debug(`stderr:`, stderr);
+        // Reject with BOTH streams. Rejecting with `stdout || stderr` discarded
+        // stderr whenever the child wrote anything to stdout (e.g. Elixir's
+        // "Compiling N files (.ex)" message), which hid the real failure reason
+        // (such as an Elixir stacktrace) from the debug logs.
+        return reject([stdout, stderr].filter(Boolean).join('\n'));
       }
       debug(`Sub process stderr:`, stderr);
       resolve(stdout || stderr);
