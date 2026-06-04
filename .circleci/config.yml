@@ -222,7 +222,9 @@ workflows:
       # Release
       - release:
           name: Release
-          context: github-release
+          context:
+            - nodejs-install
+            - github-release
           node_version: "24.13.1"
           requires:
             - test-unix
