@@ -1,10 +1,13 @@
 {
   "name": "@snyk/snyk-hex-plugin",
   "description": "Snyk Hex Plugin for Elixir ecosystem",
-  "homepage": "https://github.com/snyk/snyk-hex-plugin",
+  "homepage": "https://github.com/snyk/snyk-hex-plugin#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/snyk/snyk-hex-plugin"
+    "url": "https://github.com/snyk/snyk-hex-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/snyk/snyk-hex-plugin/issues"
   },
   "author": "snyk.io",
   "license": "Apache-2.0",
