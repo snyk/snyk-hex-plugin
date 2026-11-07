@@ -59,7 +59,7 @@
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.8",
     "ts-node": "^8.10.1",
-    "tsc-watch": "^4.2.7",
+    "tsc-watch": "^7.2.1",
     "typescript": "^5.8.3"
   }
 }
