@@ -16,6 +16,6 @@ object and return an Envelop's ScanResult object.
 
 | Node | Supported |
 |------|-----------|
-| 20   | ✅         |
 | 22   | ✅         |
 | 24   | ✅         |
+| 26   | ✅         |
