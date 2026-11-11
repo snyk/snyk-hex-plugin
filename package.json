@@ -38,6 +38,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@snyk/cli-interface": "^2.16.0",
     "@snyk/dep-graph": "^1.28.0",
     "@snyk/mix-parser": "^1.1.1",
     "debug": "^4.3.1",
