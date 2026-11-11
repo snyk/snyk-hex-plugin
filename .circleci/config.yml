@@ -195,7 +195,7 @@ workflows:
                 - master
       - security-scans:
           name: Security Scans
-          node_version: "24.13.1"
+          node_version: "24"
           context:
             - engines_sca-scanners
             - nodejs-install
@@ -203,7 +203,7 @@ workflows:
       - lint:
           name: Lint
           context: nodejs-install
-          node_version: "24.13.1"
+          node_version: "24"
       - test-unix:
           name: Unix with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
           context: nodejs-install
@@ -211,7 +211,7 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
+              node_version: [ "22", "24", "26" ]
               elixir_version: [ "1.18-erlang-27.2.2", "1.19-erlang-27.2.2" ]
       - test-windows:
           name: Windows with node v<< matrix.node_version >>, elixir v<< matrix.elixir_version >>
@@ -220,7 +220,7 @@ workflows:
             - Lint
           matrix:
             parameters:
-              node_version: [ "20.19.1", "22.15.1", "24.1.0" ]
+              node_version: [ "22", "24", "26" ]
               elixir_version: [ "1.18.2", "1.19.5" ]
 
       # Release
@@ -229,7 +229,7 @@ workflows:
           context:
             - nodejs-install
             - github-release
-          node_version: "24.13.1"
+          node_version: "24"  # npm 11+ (Node 24) is needed for OIDC trusted publishing
           requires:
             - test-unix
             - test-windows
