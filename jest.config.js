@@ -1,5 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
+  globalSetup: '<rootDir>/test/global-setup.js',
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],
   collectCoverageFrom: ['lib/**/*.ts'],
